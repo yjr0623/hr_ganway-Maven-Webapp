@@ -164,7 +164,7 @@
 #{deleted},
 #{cre_pro_id},
 #{created_by},
-#{created_date},
+CURDATE(),
 #{mod_pro_id},
 #{last_modified_by},
 CURDATE(),
