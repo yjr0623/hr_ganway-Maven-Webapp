@@ -57,7 +57,7 @@
 				#{moveTo,jdbcType=VARCHAR},
 			</if>
 			<if test="operateTime != null">
-				CURDATE(),
+				sysdate,
 			</if>
 			<if test="employeeCode != null">
 				#{employeeCode,jdbcType=VARCHAR}

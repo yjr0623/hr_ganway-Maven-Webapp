@@ -81,6 +81,24 @@
 	<sql id="Base_Column_List">
 		id,name,sex,num,date_of_birth,height,weight,native,politics,marriage,escuage,licensetype,licenselocation,licensevaliddate,drivingex,cartype,isworklicense,worklicensevaliddate,familyphone,phone,email,birthplace,birthcode,residence,residencecode,iceperson,relation,icepersonphone,iscomputer,proskill,otherskill,interest,ispeccancy,beillegal,retire,tranlocation,reason1,tranpost,reason2,tranlocation1year,reason3,updatetime,status,batch_date,deleted,cre_pro_id,created_by,created_date,mod_pro_id,last_modified_by,last_modified_date,post,applicationArea,exp_salary,workDate,channel,employeecode
 	</sql>
+	
+	<sql id="ORACLE_paginationStart">
+		<if test="endRow != null and startRow != null">
+			select * from (select row_.*, rownum rownum_ from (
+		</if>
+	</sql>
+	<sql id="ORACLE_paginationEnd">
+		<if test="endRow != null and startRow != null">
+			)row_
+			<if test="endRow != null">
+				where rownum &lt;= #{endRow}
+			</if>
+			)
+			<if test="startRow != null">
+				where rownum_ &gt;= #{startRow}
+			</if>
+		</if>
+	</sql>
 
 	  <!-- 查询用户-->  
     <select id="getAllCandidate" resultMap="BaseResultMap">  
@@ -296,7 +314,7 @@ CURDATE(),
 	
 	
 	<select id="queryBasic" parameterType="com.ganway.hr.vo.SelectPara" resultType="com.ganway.hr.vo.Candidate">
-	
+	<include refid="ORACLE_paginationStart" />  
 		select  
         <include refid="Base_Column_List" />  
         from tb_basic
@@ -311,23 +329,26 @@ CURDATE(),
         	 and employeecode = #{employeecode,jdbcType=VARCHAR}
         	</if>
         	<if test="sex1 != null">
-        	 and sex = #{sex1,jdbcType=VARCHAR}        	 
-        	</if>
-        	<if test="sex2 != null">
+        	 and (sex = #{sex1,jdbcType=VARCHAR}   
+        	 <if test="sex2 != null">
         	 or sex = #{sex2,jdbcType=VARCHAR}        	 
         	</if>
+        	    )  	 
+        	</if>
+        	
         	<if test="applicationArea != null">
         	 and applicationArea = #{applicationArea,jdbcType=VARCHAR}
         	</if>
         	<if test="marriage1 != null">
-        	 and marriage = #{marriage1,jdbcType=VARCHAR}
-        	</if>
+        	 and ( marriage = #{marriage1,jdbcType=VARCHAR}
         	<if test="marriage2 != null">
         	 or marriage = #{marriage2,jdbcType=VARCHAR}
         	</if>
         	<if test="marriage3 != null">
         	 or marriage = #{marriage3,jdbcType=VARCHAR}
+        	</if>) 
         	</if>
+        	
         	<if test="post != null">
         	 and post = #{post,jdbcType=VARCHAR}
         	</if>
@@ -343,11 +364,12 @@ CURDATE(),
         	<if test="createEnd != null">
         	 and created_date <![CDATA[<]]> = #{createEnd,jdbcType=DATE}
         	</if>
-        	limit #{start},#{pageSize}
+        	<include refid="ORACLE_paginationEnd" />
 	
 	</select>
 	
 	<select id="countBasic" parameterType="com.ganway.hr.vo.SelectPara" resultType="Integer">
+	<include refid="ORACLE_paginationStart" />  
 	    select count(*) from tb_basic
 	    where deleted = '1' 
 	    
@@ -361,23 +383,27 @@ CURDATE(),
         	 and employeecode = #{employeecode,jdbcType=VARCHAR}
         	</if>
         	<if test="sex1 != null">
-        	 and sex = #{sex1,jdbcType=VARCHAR}        	 
-        	</if>
-        	<if test="sex2 != null">
+        	 and (sex = #{sex1,jdbcType=VARCHAR}  
+        	 <if test="sex2 != null">
         	 or sex = #{sex2,jdbcType=VARCHAR}        	 
         	</if>
+        	)      	 
+        	</if>
+        	
         	<if test="applicationArea != null">
         	 and applicationArea = #{applicationArea,jdbcType=VARCHAR}
         	</if>
         	<if test="marriage1 != null">
-        	 and marriage = #{marriage1,jdbcType=VARCHAR}
-        	</if>
-        	<if test="marriage2 != null">
+        	 and ( marriage = #{marriage1,jdbcType=VARCHAR}
+        	 <if test="marriage2 != null">
         	 or marriage = #{marriage2,jdbcType=VARCHAR}
         	</if>
         	<if test="marriage3 != null">
         	 or marriage = #{marriage3,jdbcType=VARCHAR}
         	</if>
+        	)
+        	</if>
+        	
         	<if test="post != null">
         	 and post = #{post,jdbcType=VARCHAR}
         	</if>
@@ -393,6 +419,7 @@ CURDATE(),
         	<if test="createEnd != null">
         	 and created_date <![CDATA[<]]> = #{createEnd,jdbcType=DATE}
         	</if>
+        	<include refid="ORACLE_paginationEnd" />
   	</select>
 	
 	<select id="queryByBasicId" parameterType="String" resultType="com.ganway.hr.vo.Candidate">

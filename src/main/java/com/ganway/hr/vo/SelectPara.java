@@ -79,6 +79,18 @@ public class SelectPara {
 	 * 开始
 	 */
 	private Integer start;
+	
+	private Integer startRow;
+	
+	private Integer endRow;
+	
+	
+	public Integer getStartRow() {
+		return this.start;
+	}
+	public Integer getEndRow() {
+		return this.start+this.pageSize;
+	}
 
 	public String getName() {
 		return name;

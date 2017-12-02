@@ -20,6 +20,7 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,7 +51,7 @@ public class SalaryController implements BasicConstants{
    * @param request
    * @return
    */
-  @RequestMapping("apply")
+  @RequestMapping(value="apply",method=RequestMethod.POST)
   @ResponseBody
   public RespBody apply(@RequestBody SalaryInfoForm form, HttpServletRequest request){
     logger.debug("创建薪酬信息:{}",form);
