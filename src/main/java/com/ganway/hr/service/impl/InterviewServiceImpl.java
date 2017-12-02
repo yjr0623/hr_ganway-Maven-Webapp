@@ -93,6 +93,8 @@ public class InterviewServiceImpl implements IInterviewService {
 		List<Candidate> tbCandidateList = candidateDao.queryBasic(para);
 		for (int i = 0; i < tbCandidateList.size(); i++) {
 			tbCandidateList.get(i).setSex(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("sex",tbCandidateList.get(i).getSex())));
+			tbCandidateList.get(i).setPost(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("post",tbCandidateList.get(i).getPost())));
+			tbCandidateList.get(i).setMarriage(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("marriage",tbCandidateList.get(i).getMarriage())));
 			tbCandidateList.get(i).setApplicationArea(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("applicationArea",tbCandidateList.get(i).getApplicationArea())));
 			if ("5".equals(para.getStatus())) {
 

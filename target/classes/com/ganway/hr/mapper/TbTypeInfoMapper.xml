@@ -20,10 +20,7 @@
 		
 		<select id="getInterviewer" resultMap="TypeInfoResultMap" parameterType="String">
 		select  employeecode as type , interviewer as info from tb_interviewer
-		where 1=1
-		<if test="interviewer != null">
-			interviewer like #{interviewer }
-		</if>
+		where interviewer like #{interviewer }
 		</select>
 		
 		

@@ -37,7 +37,7 @@ public interface IInterviewService {
 
 	RespBody queryBasic(SelectPara para);
 
-	RespBody getInterviewer(String type_id);
+	RespBody getInterviewer(String interviewer);
 	
 
 }

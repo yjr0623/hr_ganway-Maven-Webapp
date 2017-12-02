@@ -17,7 +17,7 @@ public class TypeInfoUtils {
 	
 	public static String formatMH(String str){
 		if(str == null){
-			return null;
+			return "%%";
 		}
 		return "%"+str.trim()+"%";
 	}

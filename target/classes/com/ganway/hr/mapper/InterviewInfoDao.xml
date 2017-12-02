@@ -136,7 +136,7 @@
   <insert id="insertInterviewInfo" parameterType="com.ganway.hr.form.ApplyForm">
    insert into tb_interviewinfo (BASICID,INTERVIEWER,INTERVIEWDATE,remindType,REMARK)
    
-   			vallues (#{id},#{interviewer},#{interviewdate1},#{remindType},#{remarks})
+   			values (#{id},#{interviewer},#{interviewdate1},#{remindType},#{remarks})
   
   
   </insert>

@@ -20,7 +20,7 @@ public interface BasicConstants {
   public static final String[] candidateType={"name","sex","post","date_of_birth","phone","marriage","created_date"};
   public static final String[] candidateInfo={"姓名","性别","应聘岗位","出生日期","联系电话","婚姻状况","简历投递时间"};
   public static final String[] interviewType={};
-  public static final String[] interviewInfo={};
+  public static final String[] interviewInfo={"面试对象","性别","应聘岗位","出生日期","婚姻状况","联系电话","简历投递时间"};
   public static final String[] RCType={};
   public static final String[] RCInfo={};
   public static final String[] BHGType={};

@@ -192,6 +192,8 @@ public class CandidateServiceImpl implements ICandidateService {
 		for(int i = 0;i<tbCandidateList.size();i++){
 			
 			tbCandidateList.get(i).setSex(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("sex",tbCandidateList.get(i).getSex())));
+			tbCandidateList.get(i).setPost(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("post",tbCandidateList.get(i).getPost())));
+			tbCandidateList.get(i).setMarriage(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("marriage",tbCandidateList.get(i).getMarriage())));
 			tbCandidateList.get(i).setApplicationArea(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("applicationArea",tbCandidateList.get(i).getApplicationArea())));
 			tbCandidateList.get(i).setTbCompanyList(companyDao.queryByBasicId(tbCandidateList.get(i).getId())); 
 			tbCandidateList.get(i).setTbEducationList(educationDao.queryByBasicId(tbCandidateList.get(i).getId())); 

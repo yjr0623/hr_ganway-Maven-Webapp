@@ -10,6 +10,6 @@ public interface TypeInfoDao {
 
 	public String getInfoByMap(Map<String, String> map);
 
-	public  List<TbTypeInfo> getInterviewer(String interviewer);
+	public  List<TbTypeInfo> getInterviewer(String info);
 
 }
