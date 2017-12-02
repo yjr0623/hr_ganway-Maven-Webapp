@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ganway.hr.dao.IReasonDao">
+	<resultMap id="BaseResultMap" type="com.ganway.hr.vo.TbReason">
+		<result column="id" property="id" jdbcType="CHAR" />
+		<result column="basicId" property="basicId" jdbcType="CHAR" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="operateId" property="operateId" jdbcType="VARCHAR" />
+		<result column="moveTo" property="moveTo"
+			jdbcType="VARCHAR" />
+		<result column="operateTime" property="operateTime" jdbcType="DATE" />
+		<result column="employeeCode" property="employeeCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,basicId,reason,operateId,moveTo,operateTime,employeeCode
+	</sql>
+
+	
+
+	<!-- 插入移库理由 -->
+	<insert id="insertReason" parameterType="com.ganway.hr.vo.TbReason">
+		insert into tb_reason
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			
+			<if test="basicId != null">
+				basicId,
+			</if>
+			<if test="reason != null">
+				reason,
+			</if>
+			<if test="operateId != null">
+				operateId,
+			</if>
+			<if test="moveTo != null">
+				moveTo,
+			</if>
+			<if test="operateTime != null">
+				operateTime,
+			</if>
+			<if test="employeeCode != null">
+				employeeCode
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="basicId != null">
+				#{basicId,jdbcType=CHAR},
+			</if>
+			<if test="reason != null">
+				#{reason,jdbcType=VARCHAR},
+			</if>
+			<if test="operateId != null">
+				#{operateId,jdbcType=VARCHAR},
+			</if>
+			<if test="moveTo != null">
+				#{moveTo,jdbcType=VARCHAR},
+			</if>
+			<if test="operateTime != null">
+				CURDATE(),
+			</if>
+			<if test="employeeCode != null">
+				#{employeeCode,jdbcType=VARCHAR}
+			</if>
+			
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from tb_reason
+		where ID = #{id,jdbcType=CHAR}
+	</delete>
+	
+	<select id="queryByBasicIdAndMoveTo" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select  
+        <include refid="Base_Column_List" />  
+        from tb_reason
+        where basicId = #{basicId} and moveTo=#{moveTo} 
+	</select>
+	
+	<select id="queryByBasicId" parameterType="String" resultMap="BaseResultMap">
+		select  
+        <include refid="Base_Column_List" />  
+        from tb_reason
+        where basicId = #{id} 
+	</select>
+
+</mapper>  

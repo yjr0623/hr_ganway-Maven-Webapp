@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ganway.hr.dao.IInterviewDao">
+	<resultMap id="BaseResultMap" type="com.ganway.hr.vo.TbInterview">
+		<result column="id" property="id" jdbcType="VARCHAR" />
+		<result column="basicId" property="basicId" jdbcType="CHAR" />
+		<result column="interviewer" property="interviewer" jdbcType="VARCHAR" />
+		<result column="interviewDate" property="interviewDate" jdbcType="DATE" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="remindtype" property="remindtype" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="iscoming" property="iscoming" jdbcType="VARCHAR" />
+		
+		<result column="lasttime" property="lasttime" jdbcType="DECIMAL" />
+		<result column="exp_salary" property="exp_salary" jdbcType="DECIMAL" />
+		<result column="post_app" property="postapp" jdbcType="VARCHAR" />
+		<result column="persona" property="persona" jdbcType="VARCHAR" />
+		<result column="communication" property="communication" jdbcType="VARCHAR" />
+		<result column="workexperience" property="workexperience" jdbcType="VARCHAR" />
+		<result column="passion" property="passion" jdbcType="VARCHAR" />
+		<result column="jobstability" property="jobstability" jdbcType="VARCHAR" />
+		
+		<result column="teamwork" property="teamwork" jdbcType="VARCHAR" />
+		<result column="postskill" property="postskill" jdbcType="VARCHAR" />
+		<result column="issalary" property="issalary" jdbcType="VARCHAR" />
+		<result column="cmsp" property="cmsp" jdbcType="VARCHAR" />
+		<result column="workdate" property="workdate" jdbcType="DATE" />
+		<result column="overall_merit" property="overall_merit" jdbcType="VARCHAR" />
+		<result column="isrecord" property="isrecord" jdbcType="VARCHAR" />
+		
+		<result column="rec_position" property="rec_position" jdbcType="VARCHAR" />
+		<result column="merit" property="merit" jdbcType="VARCHAR" />
+		<result column="batch_date" property="batch_date" jdbcType="DATE" />
+		<result column="deleted" property="deleted" jdbcType="VARCHAR" />
+		<result column="cre_pro_id" property="cre_pro_id" jdbcType="VARCHAR" />
+		<result column="created_by" property="created_by" jdbcType="VARCHAR" />
+		<result column="created_time" property="created_time" jdbcType="DATE" />
+		<result column="mod_pro_id" property="mod_pro_id" jdbcType="VARCHAR" />
+		
+		<result column="last_modified_by" property="last_modified_by" jdbcType="VARCHAR" />
+		<result column="last_modified_date" property="last_modified_date" jdbcType="DATE" />
+		<result column="employeeCode" property="employeeCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,basicId,interviewer,interviewDate,remark,remindtype,status,iscoming,lasttime,exp_salary,postapp,persona,communication,workexperience,passion,
+			jobstability,teamwork,postskill,issalary,cmsp,workdate,overall_merit,isrecord,
+			rec_position,merit,batch_date,deleted,cre_pro_id,created_by,created_time,mod_pro_id,last_modified_by,last_modified_date,employeeCode
+	</sql>
+
+	
+
+	<!-- 插入面试信息 -->
+	<insert id="insertInterview" parameterType="com.ganway.hr.vo.TbInterview">
+		insert into tb_interviewinfo(id,basicId,interviewer,interviewDate,remark,remindtype,status,iscoming,lasttime,exp_salary,postapp,persona,communication,workexperience,passion,
+			jobstability,teamwork,postskill,issalary,cmsp,workdate,overall_merit,isrecord,
+			rec_position,merit,batch_date,deleted,cre_pro_id,created_by,created_time,mod_pro_id,last_modified_by,last_modified_date,employeeCode)
+			values(#{id,jdbcType=VARCHAR},
+				#{basicId,jdbcType=CHAR},
+				#{interviewer,jdbcType=VARCHAR},
+				#{interviewDate,jdbcType=DATE},
+				#{remark,jdbcType=VARCHAR},
+				#{remindtype,jdbcType=VARCHAR},
+				#{status,jdbcType=VARCHAR},
+				#{iscoming,jdbcType=VARCHAR},
+				#{lasttime,jdbcType=DECIMAL},
+				#{exp_salary,jdbcType=DECIMAL},
+				#{post_app,jdbcType=VARCHAR},
+				#{persona,jdbcType=VARCHAR},
+				#{communication,jdbcType=VARCHAR},
+				#{workexperience,jdbcType=VARCHAR},
+				#{passion,jdbcType=VARCHAR},
+				#{jobstability,jdbcType=VARCHAR},
+				#{teamwork,jdbcType=VARCHAR},
+				#{postskill,jdbcType=VARCHAR},
+				#{issalary,jdbcType=VARCHAR},
+				#{cmsp,jdbcType=VARCHAR},
+				#{workdate,jdbcType=DATE},
+				#{overall_merit,jdbcType=VARCHAR},
+				#{isrecord,jdbcType=VARCHAR},
+				#{rec_position,jdbcType=VARCHAR},
+				#{merit,jdbcType=VARCHAR},
+				#{batch_date,jdbcType=DATE},
+				#{deleted,jdbcType=VARCHAR},
+				#{cre_pro_id,jdbcType=VARCHAR},
+				#{created_by,jdbcType=VARCHAR},
+				#{created_time,jdbcType=VARCHAR},
+				#{mod_pro_id,jdbcType=VARCHAR},
+				#{last_modified_by,jdbcType=VARCHAR},
+				#{last_modified_date,jdbcType=VARCHAR},
+				#{employeeCode,jdbcType=VARCHAR})
+	</insert>
+	
+	<!-- 更新面试信息 -->
+	<update id="updateInterview"  parameterType="com.ganway.hr.vo.TbInterview">
+		update tb_interviewinfo
+		 <set>
+		 	<if test="basicId != null">
+		 		basicId = #{basicId,jdbcType=CHAR},
+		 	</if>
+		 	<if test="interviewer != null">
+		 		interviewer = #{interviewer,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="interviewDate != null">
+		 		interviewDate = #{interviewDate,jdbcType=DATE},
+		 	</if>
+		 	<if test="remark != null">
+		 		remark = #{remark,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="remindtype != null">
+		 		remindtype = #{remindtype,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="status != null">
+		 		status = #{status,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="iscoming != null">
+		 		iscoming = #{iscoming,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="lasttime != null">
+		 		lasttime = #{lasttime,jdbcType=DECIMAL},
+		 	</if>
+		 	<if test="exp_salary != null">
+		 		exp_salary = #{exp_salary,jdbcType=DECIMAL},
+		 	</if>
+		 	<if test="post_app != null">
+		 		postapp = #{post_app,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="persona != null">
+		 		persona = #{persona,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="communication != null">
+		 		communication = #{communication,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="workexperience != null">
+		 		workexperience = #{workexperience,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="passion != null">
+		 		passion = #{passion,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="jobstability != null">
+		 		jobstability = #{jobstability,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="teamwork != null">
+		 		teamwork = #{teamwork,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="postskill != null">
+		 		postskill = #{postskill,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="issalary != null">
+		 		issalary = #{issalary,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="cmsp != null">
+		 		cmsp = #{cmsp,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="workdate != null">
+		 		workdate = #{workdate,jdbcType=DATE},
+		 	</if>
+		 	<if test="overall_merit != null">
+		 		overall_merit = #{overall_merit,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="isrecord != null">
+		 		isrecord = #{isrecord,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="rec_position != null">
+		 		rec_position = #{rec_position,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="merit != null">
+		 		merit = #{merit,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="batch_date != null">
+		 		batch_date = #{batch_date,jdbcType=DATE},
+		 	</if>
+		 	<if test="deleted != null">
+		 		deleted = #{deleted,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="cre_pro_id != null">
+		 		cre_pro_id = #{cre_pro_id,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="created_by != null">
+		 		created_by = #{created_by,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="created_time != null">
+		 		created_time = #{created_time,jdbcType=DATE},
+		 	</if>
+		 	<if test="mod_pro_id != null">
+		 		mod_pro_id = #{mod_pro_id,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="last_modified_by != null">
+		 		last_modified_by = #{last_modified_by,jdbcType=VARCHAR},
+		 	</if>
+		 	<if test="last_modified_date != null">
+		 		last_modified_date = #{last_modified_date,jdbcType=DATE},
+		 	</if>
+		 	<if test="employeeCode != null">
+		 		employeeCode = #{employeeCode,jdbcType=VARCHAR}
+		 	</if>
+		 </set>
+		 where id = #{id,jdbcType=VARCHAR}
+	</update>
+	<!-- 查询面试信息 -->
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_interviewinfo
+		where ID = #{id,jdbcType=DECIMAL}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from tb_interviewinfo
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	
+	<select id="selectByBasicId" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from tb_interviewinfo
+		where basicId = #{basicId,jdbcType=DECIMAL}
+		order by CREATED_DATE desc
+		limit 0,1
+	</select>
+
+</mapper>  

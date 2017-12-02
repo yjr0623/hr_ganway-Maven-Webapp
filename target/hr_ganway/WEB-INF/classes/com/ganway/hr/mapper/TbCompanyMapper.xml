@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ganway.hr.dao.ICompanyDao">
+	<resultMap id="BaseResultMap" type="com.ganway.hr.vo.TbCompany">
+		<result column="id" property="id" jdbcType="CHAR" />
+		<result column="basicId" property="basicId" jdbcType="CHAR" />
+		<result column="beginDate" property="beginDate" jdbcType="DATE" />
+		<result column="endDate" property="endDate" jdbcType="DATE" />
+		<result column="company" property="company"
+			jdbcType="VARCHAR" />
+		<result column="post" property="post" jdbcType="VARCHAR" />
+		<result column="salary" property="salary" jdbcType="VARCHAR" />
+		<result column="reason" property="reason" jdbcType="VARCHAR" />
+		<result column="reterence" property="reterence" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="employeeCode" property="employeeCode" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,basicId,beginDate,endDate,company,post,salary,reason,reterence,phone,employeeCode
+	</sql>
+<!-- 插入工作经历 -->
+	<update id="updateByPrimaryKey" parameterType="com.ganway.hr.vo.TbCompany">
+			update tb_company
+		<set>
+		<if test="basicId != null">
+				#{basicId,jdbcType=CHAR},
+			</if>
+			<if test="beginDate != null">
+				#{beginDate,jdbcType=DATE},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=DATE},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null">
+				#{post,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				#{salary,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				#{reason,jdbcType=VARCHAR},
+			</if>
+			<if test="reterence != null">
+				#{reterence,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="employeeCode != null">
+				#{employeeCode,jdbcType=VARCHAR}
+			</if>
+		</set>
+		where id=#{id,jdbcType=CHAR}
+	</update>
+	
+
+	<!-- 插入工作经历 -->
+	<insert id="insertCompany" parameterType="com.ganway.hr.vo.TbCompany">
+		insert into tb_company
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="basicId != null">
+				basicId,
+			</if>
+			<if test="beginDate != null">
+				beginDate,
+			</if>
+			<if test="endDate != null">
+				endDate,
+			</if>
+			<if test="company != null">
+				company,
+			</if>
+			<if test="post != null">
+				post,
+			</if>
+			<if test="salary != null">
+				salary,
+			</if>
+			<if test="reason != null">
+				reason,
+			</if>
+			<if test="reterence != null">
+				reterence,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="employeeCode != null">
+				employeeCode
+			</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="basicId != null">
+				#{basicId,jdbcType=CHAR},
+			</if>
+			<if test="beginDate != null">
+				#{beginDate,jdbcType=DATE},
+			</if>
+			<if test="endDate != null">
+				#{endDate,jdbcType=DATE},
+			</if>
+			<if test="company != null">
+				#{company,jdbcType=VARCHAR},
+			</if>
+			<if test="post != null">
+				#{post,jdbcType=VARCHAR},
+			</if>
+			<if test="salary != null">
+				#{salary,jdbcType=VARCHAR},
+			</if>
+			<if test="reason != null">
+				#{reason,jdbcType=VARCHAR},
+			</if>
+			<if test="reterence != null">
+				#{reterence,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="employeeCode != null">
+				#{employeeCode,jdbcType=VARCHAR}
+			</if>
+			
+		</trim>
+	</insert>
+
+
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from tb_company
+		where ID = #{id,jdbcType=CHAR}
+	</delete>
+	
+	<select id="queryByBasicId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select  
+        <include refid="Base_Column_List" />  
+        from tb_company
+        where basicId = #{basicId,jdbcType=CHAR}
+	</select>
+
+</mapper>  

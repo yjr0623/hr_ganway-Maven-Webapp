@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ganway.hr.dao.IBasicDao">
+	<resultMap id="BaseResultMap" type="com.ganway.hr.vo.TbBasic">
+		<id column="id" property="id" jdbcType="CHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="num" property="num" jdbcType="VARCHAR" />
+		<result column="date_of_birth" property="date_of_birth"
+			jdbcType="DATE" />
+		<result column="height" property="height" jdbcType="VARCHAR" />
+		<result column="weight" property="weight" jdbcType="VARCHAR" />
+		<result column="nativeStr" property="native" jdbcType="VARCHAR" />
+		<result column="politics" property="politics" jdbcType="VARCHAR" />
+		<result column="marriage" property="marriage" jdbcType="VARCHAR" />
+		<result column="escuage" property="escuage" jdbcType="VARCHAR" />
+		<result column="licensetype" property="licensetype" jdbcType="VARCHAR" />
+		<result column="licenselocation" property="licenselocation"
+			jdbcType="VARCHAR" />
+		<result column="licensevaliddate" property="licensevaliddate"
+			jdbcType="DATE" />
+		<result column="drivingex" property="drivingex" jdbcType="VARCHAR" />
+		<result column="cartype" property="cartype" jdbcType="VARCHAR" />
+		<result column="isworklicense" property="isworklicense"
+			jdbcType="VARCHAR" />
+		<result column="worklicensevaliddate" property="worklicensevaliddate"
+			jdbcType="VARCHAR" />
+		<result column="familyphone" property="familyphone" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="birthplace" property="birthplace" jdbcType="VARCHAR" />
+		<result column="birthcode" property="birthcode" jdbcType="VARCHAR" />
+		<result column="residence" property="residence" jdbcType="VARCHAR" />
+		<result column="residencecode" property="residencecode"
+			jdbcType="VARCHAR" />
+		<result column="iceperson" property="iceperson" jdbcType="VARCHAR" />
+		<result column="relation" property="relation" jdbcType="VARCHAR" />
+		<result column="icepersonphone" property="icepersonphone"
+			jdbcType="VARCHAR" />
+		<result column="iscomputer" property="iscomputer" jdbcType="VARCHAR" />
+		<result column="proskill" property="proskill" jdbcType="VARCHAR" />
+		<result column="otherskill" property="otherskill" jdbcType="VARCHAR" />
+		<result column="interest" property="interest" jdbcType="VARCHAR" />
+		<result column="ispeccancy" property="ispeccancy" jdbcType="VARCHAR" />
+		<result column="beillegal" property="beillegal" jdbcType="VARCHAR" />
+		<result column="retire" property="retire" jdbcType="VARCHAR" />
+		<result column="tranlocation" property="tranlocation" jdbcType="VARCHAR" />
+		<result column="reason1" property="reason1" jdbcType="VARCHAR" />
+		<result column="tranpost" property="tranpost" jdbcType="VARCHAR" />
+		<result column="reason2" property="reason2" jdbcType="VARCHAR" />
+		<result column="tranlocation1year" property="tranlocation1year"
+			jdbcType="VARCHAR" />
+		<result column="reason3" property="reason3" jdbcType="VARCHAR" />
+		<result column="updatetime" property="updatetime" jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="VARCHAR" />
+		<result column="batch_date" property="batch_date" jdbcType="DATE" />
+		<result column="deleted" property="deleted" jdbcType="VARCHAR" />
+		<result column="cre_pro_id" property="cre_pro_id" jdbcType="VARCHAR" />
+		<result column="created_by" property="created_by" jdbcType="VARCHAR" />
+		<result column="created_date" property="created_date" jdbcType="DATE" />
+		<result column="mod_pro_id" property="mod_pro_id" jdbcType="VARCHAR" />
+		<result column="last_modified_by" property="last_modified_by"
+			jdbcType="VARCHAR" />
+		<result column="last_modified_date" property="last_modified_date"
+			jdbcType="DATE" />
+		<result column="post" property="post" jdbcType="VARCHAR" />
+		<result column="applicationArea" property="applicationArea"
+			jdbcType="VARCHAR" />
+		<result column="workDate" property="workDate" jdbcType="DATE" />
+		<result column="exp_salary" property="exp_salary" jdbcType="VARCHAR" />
+		<result column="channel" property="channel" jdbcType="VARCHAR" />
+		<result column="employeecode" property="employeecode" jdbcType="VARCHAR" />
+
+
+
+
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id,name,sex,num,date_of_birth,height,weight,native,politics,marriage,escuage,licensetype,licenselocation,licensevaliddate,drivingex,cartype,isworklicense,worklicensevaliddate,familyphone,phone,email,birthplace,birthcode,residence,residencecode,iceperson,relation,icepersonphone,iscomputer,proskill,otherskill,interest,ispeccancy,beillegal,retire,tranlocation,reason1,tranpost,reason2,tranlocation1year,reason3,updatetime,status,batch_date,deleted,cre_pro_id,created_by,created_date,mod_pro_id,last_modified_by,last_modified_date,post,applicationArea,exp_salary,workDate,channel,employeecode
+	</sql>
+	
+
+	
+
+	<select id="load" resultMap="BaseResultMap" parameterType="String">
+		select * from tb_basic where id = #{id}
+	</select>
+	<select id="findByEmployeecode" resultMap="BaseResultMap"
+		parameterType="String">
+		select * from tb_basic where employeecode =
+		#{employeecode}
+	</select>
+	<select id="countByExample" resultType="Integer"
+		parameterType="java.util.Map">
+		select count(*) 
+		from 
+		tb_basic
+		where 1=1
+		<if test="name != null">
+			and name = #{name}
+		</if>
+		<if test="post != null">
+			and post = #{post}
+		</if>
+		<if test="applicationArea != null">
+			and applicationArea = #{applicationAreas}
+		</if>
+		<if test="sex != null">
+			and sex = #{sex}
+		</if>
+		<if test="marriage != null">
+			and marriage = #{marriage}
+		</if>
+		<if test="createEnd != null">
+			and created_date &lt;= #{createEnd}
+		</if>
+		<if test="createStart != null">
+			and created_date &gt;= #{createStart}
+		</if>
+		<if test="birthEnd != null">
+			and date_of_birth &lt;= #{birthEnd}
+		</if>
+		<if test="birthStart != null">
+			and date_of_birth &gt;= #{birthStart}
+		</if>
+
+	</select>
+	<select id="findByPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select *
+		from tb_basic
+		where 1=1
+		<if test="name != null">
+			and name = #{name}
+		</if>
+		<if test="post != null">
+			and post = #{post}
+		</if>
+		<if test="applicationArea != null">
+			and applicationArea = #{applicationAreas}
+		</if>
+		<if test="sex != null">
+			and sex = #{sex}
+		</if>
+		<if test="marriage != null">
+			and marriage = #{marriage}
+		</if>
+		<if test="createEnd != null">
+			and created_date &lt;= #{createEnd}
+		</if>
+		<if test="createStart != null">
+			and created_date &gt;= #{createStart}
+		</if>
+		<if test="birthEnd != null">
+			and date_of_birth &lt;= #{birthEnd}
+		</if>
+		<if test="birthStart != null">
+			and date_of_birth &gt;= #{birthStart}
+		</if>
+	</select>
+
+	<!-- 查询用户 -->
+	<select id="findTbBasicByNum" resultMap="BaseResultMap"
+		parameterType="String">
+		select *
+		from tb_basic
+		where num = #{num}
+	</select>
+
+
+
+	<!-- 插入求职者 -->
+	<insert id="insertCandidate" parameterType="com.ganway.hr.vo.TbBasic">
+		insert into tb_basic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="sex != null">
+				sex,
+			</if>
+			<if test="num != null">
+				num,
+			</if>
+			date_of_birth,height,weight,native,politics,marriage,escuage,licensetype,licenselocation,licensevaliddate,drivingex,cartype,isworklicense,worklicensevaliddate,familyphone,phone,email,birthplace,birthcode,residence,residencecode,iceperson,relation,icepersonphone,iscomputer,proskill,otherskill,interest,ispeccancy,beillegal,retire,tranlocation,reason1,tranpost,reason2,tranlocation1year,reason3,updatetime,status,batch_date,deleted,cre_pro_id,created_by,created_date,mod_pro_id,last_modified_by,last_modified_date,post,applicationArea,exp_salary,workDate,channel,employeecode
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=CHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=VARCHAR},
+			</if>
+			#{date_of_birth },
+			#{height },
+			#{weight },
+			#{nativeStr },
+			#{politics },
+			#{marriage },
+			#{escuage },
+			#{licensetype },
+			#{licenselocation },
+			#{licensevaliddate },
+			#{drivingex },
+			#{cartype },
+			#{isworklicense },
+			#{worklicensevaliddate },
+			#{familyphone },
+			#{phone },
+			#{email },
+			#{birthplace },
+			#{birthcode },
+			#{residence },
+			#{residencecode },
+			#{iceperson },
+			#{relation },
+			#{icepersonphone },
+			#{iscomputer },
+			#{proskill },
+			#{otherskill },
+			#{interest },
+			#{ispeccancy },
+			#{beillegal },
+			#{retire },
+			#{tranlocation },
+			#{reason1 },
+			#{tranpost },
+			#{reason2 },
+			#{tranlocation1year },
+			#{reason3 },
+			#{updatetime },
+			#{status },
+			#{batch_date },
+			#{deleted },
+			#{cre_pro_id },
+			#{created_by },
+			CURDATE(),
+			#{mod_pro_id },
+			#{last_modified_by },
+			CURDATE(),
+			#{post },
+			#{applicationArea },
+			#{exp_salary },
+			#{workDate},
+			#{channel },
+			#{employeecode }
+
+		</trim>
+	</insert>
+
+
+
+	<!-- 更新求职者 -->
+	<update id="updateByPrimaryKey" parameterType="com.ganway.hr.vo.TbBasic">
+		update tb_basic
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				sex = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="num != null">
+				num = #{num,jdbcType=VARCHAR},
+			</if>
+			<if test="date_of_birth != null">
+				date_of_birth = #{date_of_birth,jdbcType=VARCHAR},
+			</if>
+			<if test="height != null">
+				height = #{height,jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null">
+				weight = #{weight,jdbcType=VARCHAR},
+			</if>
+			<if test="native != null">
+				native = #{nativeStr,jdbcType=VARCHAR},
+			</if>
+			<if test="politics != null">
+				politics = #{politics,jdbcType=VARCHAR},
+			</if>
+			<if test="marriage != null">
+				marriage = #{marriage,jdbcType=VARCHAR},
+			</if>
+			<if test="escuage != null">
+				escuage = #{escuage,jdbcType=VARCHAR},
+			</if>
+			<if test="licensetype != null">
+				licensetype = #{licensetype,jdbcType=VARCHAR},
+			</if>
+			<if test="licenselocation != null">
+				licenselocation = #{licenselocation,jdbcType=VARCHAR},
+			</if>
+			<if test="licensevaliddate != null">
+				licensevaliddate = #{licensevaliddate,jdbcType=VARCHAR},
+			</if>
+			<if test="drivingex != null">
+				drivingex = #{drivingex,jdbcType=VARCHAR},
+			</if>
+			<if test="cartype != null">
+				cartype = #{cartype,jdbcType=VARCHAR},
+			</if>
+			<if test="isworklicense != null">
+				isworklicense = #{isworklicense,jdbcType=VARCHAR},
+			</if>
+			<if test="worklicensevaliddate != null">
+				worklicensevaliddate =
+				#{worklicensevaliddate,jdbcType=VARCHAR},
+			</if>
+			<if test="familyphone != null">
+				familyphone = #{familyphone,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="birthplace != null">
+				birthplace = #{birthplace,jdbcType=VARCHAR},
+			</if>
+			<if test="birthcode != null">
+				birthcode = #{birthcode,jdbcType=VARCHAR},
+			</if>
+			<if test="residence != null">
+				residence = #{residence,jdbcType=VARCHAR},
+			</if>
+			<if test="residencecode != null">
+				residencecode = #{residencecode,jdbcType=VARCHAR},
+			</if>
+			<if test="iceperson != null">
+				iceperson = #{iceperson,jdbcType=VARCHAR},
+			</if>
+			<if test="relation != null">
+				relation = #{relation,jdbcType=VARCHAR},
+			</if>
+			<if test="icepersonphone != null">
+				icepersonphone = #{icepersonphone,jdbcType=VARCHAR},
+			</if>
+			<if test="iscomputer != null">
+				iscomputer = #{iscomputer,jdbcType=VARCHAR},
+			</if>
+			<if test="proskill != null">
+				proskill = #{proskill,jdbcType=VARCHAR},
+			</if>
+			<if test="otherskill != null">
+				otherskill = #{otherskill,jdbcType=VARCHAR},
+			</if>
+			<if test="interest != null">
+				interest = #{interest,jdbcType=VARCHAR},
+			</if>
+			<if test="ispeccancy != null">
+				ispeccancy = #{ispeccancy,jdbcType=VARCHAR},
+			</if>
+			<if test="beillegal != null">
+				beillegal = #{beillegal,jdbcType=VARCHAR},
+			</if>
+			<if test="retire != null">
+				retire = #{retire,jdbcType=VARCHAR},
+			</if>
+			<if test="tranlocation != null">
+				tranlocation = #{tranlocation,jdbcType=VARCHAR},
+			</if>
+			<if test="reason1 != null">
+				reason1 = #{reason1,jdbcType=VARCHAR},
+			</if>
+			<if test="tranpost != null">
+				tranpost = #{tranpost,jdbcType=VARCHAR},
+			</if>
+			<if test="reason2 != null">
+				reason2 = #{reason2,jdbcType=VARCHAR},
+			</if>
+			<if test="tranlocation1year != null">
+				tranlocation1year =
+				#{tranlocation1year,jdbcType=VARCHAR},
+			</if>
+			<if test="reason3 != null">
+				reason3 = #{reason3,jdbcType=VARCHAR},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="batch_date != null">
+				batch_date = #{batch_date,jdbcType=VARCHAR},
+			</if>
+			<if test="deleted != null">
+				deleted = #{deleted,jdbcType=VARCHAR},
+			</if>
+			<if test="cre_pro_id != null">
+				cre_pro_id = #{cre_pro_id,jdbcType=VARCHAR},
+			</if>
+			<if test="created_by != null">
+				created_by = #{created_by,jdbcType=VARCHAR},
+			</if>
+			<if test="created_date != null">
+				created_date = #{created_date,jdbcType=VARCHAR},
+			</if>
+			<if test="mod_pro_id != null">
+				mod_pro_id = #{mod_pro_id,jdbcType=VARCHAR},
+			</if>
+			<if test="last_modified_by != null">
+				last_modified_by = #{last_modified_by,jdbcType=VARCHAR},
+			</if>
+				last_modified_date=CURDATE(),
+			<if test="post != null">
+				post = #{post,jdbcType=VARCHAR},
+			</if>
+			<if test="applicationArea != null">
+				applicationArea = #{applicationArea,jdbcType=VARCHAR},
+			</if>
+			<if test="exp_salary != null">
+				exp_salary = #{exp_salary,jdbcType=VARCHAR},
+			</if>
+			<if test="workDate != null">
+				workDate = #{workDate,jdbcType=VARCHAR},
+			</if>
+			<if test="channel != null">
+				channel = #{channel,jdbcType=VARCHAR},
+			</if>
+			<if test="employeecode != null">
+				employeecode = #{employeecode,jdbcType=VARCHAR},
+			</if>
+
+
+		</set>
+		where id = #{id,jdbcType=CHAR}
+
+	</update>
+	<update id="updateBasicByIdAndStatus" parameterType="java.util.Map">
+	update tb_basic set status = #{status }, last_modified_date = CURDATE()   where id = #{id}
+	</update>
+
+
+	<update id="updateCanToInterView"  parameterType="com.ganway.hr.form.ApplyForm">
+	update tb_basic 	
+	<set>
+	last_modified_date=CURDATE(),
+	<if test="status != null">
+		status=#{status }
+	</if>
+	</set> 
+	where  id = #{id }	
+	</update>
+
+
+</mapper>  

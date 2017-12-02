@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ganway.hr.dao.TypeInfoDao">
+	<resultMap id="TypeInfoResultMap" type="com.ganway.hr.vo.TbTypeInfo">
+		<id column="ID" jdbcType="BIGINT" property="id" />
+		<result column="type_id" property="type_id" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="info" property="info" jdbcType="VARCHAR" />
+		</resultMap>
+		<select id="getByTpyeId" resultMap="TypeInfoResultMap" parameterType="String">
+		select type , info from tb_typeinfo
+		where type_id =#{type_id }
+		
+		
+		</select>
+		
+		
+		
+</mapper>
+		
+		
+		
