@@ -36,6 +36,8 @@ public interface IInterviewService {
 	public List<TbBasic> findByPara(SelectPara para);
 
 	RespBody queryBasic(SelectPara para);
+
+	RespBody getInterviewer(String type_id);
 	
 
 }

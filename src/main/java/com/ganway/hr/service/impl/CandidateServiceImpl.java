@@ -23,6 +23,7 @@ import com.ganway.hr.common.BasicConstants;
 import com.ganway.hr.common.DateUtils;
 import com.ganway.hr.common.RespBody;
 import com.ganway.hr.common.ReturnCode;
+import com.ganway.hr.common.TypeInfoUtils;
 import com.ganway.hr.dao.IBasicDao;
 import com.ganway.hr.dao.ICandidateDao;
 import com.ganway.hr.dao.ICompanyDao;
@@ -189,6 +190,9 @@ public class CandidateServiceImpl implements ICandidateService {
 		
 		List<Candidate> tbCandidateList = candidateDao.queryBasic(para);
 		for(int i = 0;i<tbCandidateList.size();i++){
+			
+			tbCandidateList.get(i).setSex(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("sex",tbCandidateList.get(i).getSex())));
+			tbCandidateList.get(i).setApplicationArea(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("applicationArea",tbCandidateList.get(i).getApplicationArea())));
 			tbCandidateList.get(i).setTbCompanyList(companyDao.queryByBasicId(tbCandidateList.get(i).getId())); 
 			tbCandidateList.get(i).setTbEducationList(educationDao.queryByBasicId(tbCandidateList.get(i).getId())); 
 			tbCandidateList.get(i).setTbFamilyList(familyDao.queryByBasicId(tbCandidateList.get(i).getId())); 

@@ -1,5 +1,5 @@
 package com.ganway.hr.common;
 
-public class BeanUtilsEX {
+public class ExcelBeanUtils {
 
 }

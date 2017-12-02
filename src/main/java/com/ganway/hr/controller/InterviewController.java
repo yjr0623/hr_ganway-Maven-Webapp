@@ -157,6 +157,14 @@ public class InterviewController implements BasicConstants {
 		return inserviewService.queryBasic(para);
 	}
 	
+	@ResponseBody
+	@RequestMapping("queryInterviewer")
+	public RespBody queryInterviewer(String interviewer) {
+		
+			return inserviewService.getInterviewer(interviewer);
+	}
+	
+	
 /**
 	@RequestMapping("/find")
 	@ResponseBody

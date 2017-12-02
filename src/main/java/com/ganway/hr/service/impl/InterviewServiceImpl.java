@@ -17,6 +17,7 @@ import com.ganway.hr.common.DateUtils;
 import com.ganway.hr.common.Paginator;
 import com.ganway.hr.common.RespBody;
 import com.ganway.hr.common.ReturnCode;
+import com.ganway.hr.common.TypeInfoUtils;
 import com.ganway.hr.dao.IBasicDao;
 import com.ganway.hr.dao.ICandidateDao;
 import com.ganway.hr.dao.ICompanyDao;
@@ -25,6 +26,7 @@ import com.ganway.hr.dao.IFamilyDao;
 import com.ganway.hr.dao.IInterviewDao;
 import com.ganway.hr.dao.IReasonDao;
 import com.ganway.hr.dao.InterviewInfoDao;
+import com.ganway.hr.dao.TypeInfoDao;
 import com.ganway.hr.vo.InterviewInfoDO;
 import com.ganway.hr.form.InterviewPage;
 import com.ganway.hr.service.IInterviewService;
@@ -55,7 +57,8 @@ public class InterviewServiceImpl implements IInterviewService {
 	private IEducationDao educationDao;
 	@Resource
 	private IFamilyDao familyDao;
-
+	@Resource
+	private TypeInfoDao typeInfoDao;
 	/**
 	 * 时间戳转换为日期
 	 * 
@@ -89,6 +92,8 @@ public class InterviewServiceImpl implements IInterviewService {
 
 		List<Candidate> tbCandidateList = candidateDao.queryBasic(para);
 		for (int i = 0; i < tbCandidateList.size(); i++) {
+			tbCandidateList.get(i).setSex(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("sex",tbCandidateList.get(i).getSex())));
+			tbCandidateList.get(i).setApplicationArea(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("applicationArea",tbCandidateList.get(i).getApplicationArea())));
 			if ("5".equals(para.getStatus())) {
 
 				tbCandidateList.get(i).setInterviewInfo(
@@ -140,7 +145,18 @@ public class InterviewServiceImpl implements IInterviewService {
 	public void updateInterview(TbInterview interview) {
 		interviewDao.updateInterview(interview);
 	}
+	
 
+	@Override
+	public RespBody getInterviewer(String interviewer) {
+		RespBody respBody = new RespBody();
+		respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
+		respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
+		respBody.setData(JSON.toJSONString(typeInfoDao.getInterviewer(TypeInfoUtils.formatMH(interviewer))));
+		return respBody;
+		
+	}
+	
 	public List<TbBasic> findByPara(SelectPara para) {
 		// int pageNo = para.getPageNo()==null?1:para.getPageNo();
 		// int pageSize = para.getPageSize()==null?20:para.getPageSize();

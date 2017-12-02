@@ -10,8 +10,20 @@
 		<select id="getByTpyeId" resultMap="TypeInfoResultMap" parameterType="String">
 		select type , info from tb_typeinfo
 		where type_id =#{type_id }
+		</select>
 		
+		<select id="getInfoByMap" resultType="String" parameterType="java.util.Map">
+		select  info from tb_typeinfo
+		where type_id =#{type_id } and type = #{type }
 		
+		</select>
+		
+		<select id="getInterviewer" resultMap="TypeInfoResultMap" parameterType="String">
+		select  employeecode as type , interviewer as info from tb_interviewer
+		where 1=1
+		<if test="interviewer != null">
+			interviewer like #{interviewer }
+		</if>
 		</select>
 		
 		

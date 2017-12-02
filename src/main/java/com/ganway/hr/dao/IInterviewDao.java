@@ -35,4 +35,6 @@ public interface IInterviewDao {
 
 	public TbInterview selectByBasicId(String id);
 
+	
+
 }
