@@ -323,7 +323,7 @@ sysdate,
          and  status=#{status,jdbcType=VARCHAR}
         </if>
         	<if test="name != null">
-        	 and name = #{name,jdbcType=VARCHAR}
+        	 and name like #{name,jdbcType=VARCHAR}
         	</if>
         	<if test="employeecode != null">
         	 and employeecode = #{employeecode,jdbcType=VARCHAR}
@@ -364,7 +364,7 @@ sysdate,
         	<if test="createEnd != null">
         	 and created_date <![CDATA[<]]> = #{createEnd,jdbcType=DATE}
         	</if>
-        	
+        	order by created_date
         	<include refid="ORACLE_paginationEnd" />
 	
 	</select>
@@ -378,7 +378,7 @@ sysdate,
          and  status=#{status,jdbcType=VARCHAR}
         </if>
         	<if test="name != null">
-        	 and name = #{name,jdbcType=VARCHAR}
+        	 and name like #{name,jdbcType=VARCHAR}
         	</if>
         	<if test="employeecode != null">
         	 and employeecode = #{employeecode,jdbcType=VARCHAR}
