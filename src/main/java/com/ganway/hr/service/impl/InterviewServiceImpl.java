@@ -80,6 +80,7 @@ public class InterviewServiceImpl implements IInterviewService {
 		int pageSize = para.getPageSize() == null ? 20 : para.getPageSize();
 		para.setStart((start - 1) * pageSize);
 		para.setPageSize(pageSize);
+		para.setName(TypeInfoUtils.formatMH(para.getName()));
 		para.setBirthStart(format(para.getBirthStart()));
 		para.setBirthEnd(format(para.getBirthEnd()));
 		para.setCreateStart(format(para.getCreateStart()));
