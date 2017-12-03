@@ -142,7 +142,7 @@ public class ContractDOExample {
             return (Criteria) this;
         }
 
-        public Criteria andTreatyidEqualTo(Long value) {
+        public Criteria andTreatyidEqualTo(String value) {
             addCriterion("TREATYID =", value, "treatyid");
             return (Criteria) this;
         }

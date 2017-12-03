@@ -25,7 +25,6 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,16 +52,14 @@ public class EntryController implements BasicConstants{
    * @param request
    * @return
    */
-  @RequestMapping(value="apply",method=RequestMethod.POST)
+  @RequestMapping("apply")
   @ResponseBody
   public RespBody apply(@RequestBody EntryInfoForm form, HttpServletRequest request){
     logger.debug("创建入职申请信息:{}",form);
     RespBody respBody = new RespBody();
     try{
       Assert.notNull(form,"请求不能为空");
-      Assert.hasText(form.getId(),"应聘编号不能为空");
-      TbBasic basic = entryService.findById(form.getId());
-      Assert.notNull(basic,"应聘编号不存在");
+      Assert.notNull(form.getBasicId(),"应聘编号不存在");
       Assert.hasText(form.getName(),"姓名不能为空");
       Assert.hasText(form.getEmployeecode(),"职工代码不能为空");
       Assert.hasText(form.getMobile(),"手机号不能为空");
@@ -123,6 +120,7 @@ public class EntryController implements BasicConstants{
       return respBody;
     }
     respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
+    respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
     return respBody;
   }
 

@@ -3,7 +3,7 @@ package com.ganway.hr.vo;
 import java.util.Date;
 
 public class TbPostDO {
-    private Long id;
+    private String id;
 
     private String name;
 
@@ -85,23 +85,25 @@ public class TbPostDO {
 
     private String deleted;
 
-    private Integer creProId;
+    private String creProId;
 
-    private Integer createdBy;
+    private String createdBy;
 
     private Date createdDate;
 
-    private Date modProId;
+    private String modProId;
 
-    private Integer lastModifiedBy;
+    private String lastModifiedBy;
 
     private Date lastModifiedDate;
+    
+    private String basicId;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id ;
     }
 
@@ -419,19 +421,19 @@ public class TbPostDO {
         this.deleted = deleted == null ? null : deleted.trim();
     }
 
-    public Integer getCreProId() {
+    public String getCreProId() {
         return creProId;
     }
 
-    public void setCreProId(Integer creProId) {
+    public void setCreProId(String creProId) {
         this.creProId = creProId;
     }
 
-    public Integer getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Integer createdBy) {
+    public void setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -443,19 +445,19 @@ public class TbPostDO {
         this.createdDate = createdDate;
     }
 
-    public Date getModProId() {
+    public String getModProId() {
         return modProId;
     }
 
-    public void setModProId(Date modProId) {
+    public void setModProId(String modProId) {
         this.modProId = modProId;
     }
 
-    public Integer getLastModifiedBy() {
+    public String getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(Integer lastModifiedBy) {
+    public void setLastModifiedBy(String lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 
@@ -474,4 +476,13 @@ public class TbPostDO {
 	public void setDate_of_birth(Date date_of_birth) {
 		this.date_of_birth = date_of_birth;
 	}
+
+	public String getBasicId() {
+		return basicId;
+	}
+
+	public void setBasicId(String basicId) {
+		this.basicId = basicId;
+	}
+	
 }

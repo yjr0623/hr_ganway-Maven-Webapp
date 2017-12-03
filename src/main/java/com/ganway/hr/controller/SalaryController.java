@@ -20,7 +20,6 @@ import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -51,7 +50,7 @@ public class SalaryController implements BasicConstants{
    * @param request
    * @return
    */
-  @RequestMapping(value="apply",method=RequestMethod.POST)
+  @RequestMapping("apply")
   @ResponseBody
   public RespBody apply(@RequestBody SalaryInfoForm form, HttpServletRequest request){
     logger.debug("创建薪酬信息:{}",form);
@@ -59,18 +58,15 @@ public class SalaryController implements BasicConstants{
     try{
       TbPostDO post = new TbPostDO();
       Assert.notNull(form,"薪酬信息不能为空");
-      Assert.hasText(form.getId(),"应聘编号不能为空");
-      TbBasic basic = entryService.findById(form.getId());
-      Assert.notNull(basic,"应聘编号不存在");
+      Assert.hasText(form.getBasicId(),"应聘编号不能为空");
       Assert.hasText(form.getEmployeecode(),"职工编号不能为空");
       Assert.hasText(form.getPost(),"职位等级不能为空");
       Assert.hasText(form.getPosttype(),"职位类型不能为空");
       Assert.hasText(form.getSalaryId(),"基本工资档位不能为空");
       Assert.hasText(form.getPerfId(),"绩效档位不能为空");
       Assert.notNull(form.getDiscount(),"试用打折率不能为空");
-      Assert.isTrue(basic.getEmployeeCode().equals(form.getEmployeecode()),"职工不存在");
       BeanUtils.copyProperties(form,post);
-      if(!entryService.updateSalary(form.getId(),post)){
+      if(!entryService.updateSalary(form.getBasicId(),post)){
         logger.error("添加薪酬失败,{}",post.getEmployeecode());
         respBody.setReturnCode(ReturnCode.SALARY_ADD_FAILED.getCode());
         respBody.setReturnMessage(ReturnCode.SALARY_ADD_FAILED.getMsg());
@@ -93,6 +89,7 @@ public class SalaryController implements BasicConstants{
       return respBody;
     }
     respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
+    respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
     return respBody;
   }
 

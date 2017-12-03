@@ -364,6 +364,7 @@ sysdate,
         	<if test="createEnd != null">
         	 and created_date <![CDATA[<]]> = #{createEnd,jdbcType=DATE}
         	</if>
+        	
         	<include refid="ORACLE_paginationEnd" />
 	
 	</select>

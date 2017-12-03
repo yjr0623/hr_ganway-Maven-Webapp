@@ -112,6 +112,8 @@ public class SalaryInfoForm {
    * 社保套帐
    */
   private String socialSecurity;
+  
+  private String basicId;
 
   public String getId() {
     return id;
@@ -280,4 +282,13 @@ public class SalaryInfoForm {
   public void setSocialSecurity(String socialSecurity) {
     this.socialSecurity = socialSecurity;
   }
+
+	public String getBasicId() {
+		return basicId;
+	}
+	
+	public void setBasicId(String basicId) {
+		this.basicId = basicId;
+	}
+  
 }

@@ -3,9 +3,9 @@ package com.ganway.hr.vo;
 import java.util.Date;
 
 public class ContractDO {
-    private Long treatyid;
+    private String treatyid;
 
-    private Long employeecode;
+    private String employeecode;
 
     private String postId;
 
@@ -19,27 +19,29 @@ public class ContractDO {
 
     private Date treatyend;
 
-    private Long treatylast;
+    private String treatylast;
 
     private String deleted;
 
     private String path;
 
     private String remark;
+    
+    private String basicId;
 
-    public Long getTreatyid() {
+    public String getTreatyid() {
         return treatyid;
     }
 
-    public void setTreatyid(Long treatyid) {
+    public void setTreatyid(String treatyid) {
         this.treatyid = treatyid;
     }
 
-    public Long getEmployeecode() {
+    public String getEmployeecode() {
         return employeecode;
     }
 
-    public void setEmployeecode(Long employeecode) {
+    public void setEmployeecode(String employeecode) {
         this.employeecode = employeecode;
     }
 
@@ -91,11 +93,11 @@ public class ContractDO {
         this.treatyend = treatyend;
     }
 
-    public Long getTreatylast() {
+    public String getTreatylast() {
         return treatylast;
     }
 
-    public void setTreatylast(Long treatylast) {
+    public void setTreatylast(String treatylast) {
         this.treatylast = treatylast;
     }
 
@@ -122,4 +124,13 @@ public class ContractDO {
     public void setRemark(String remark) {
         this.remark = remark == null ? null : remark.trim();
     }
+
+	public String getBasicId() {
+		return basicId;
+	}
+
+	public void setBasicId(String basicId) {
+		this.basicId = basicId;
+	}
+    
 }

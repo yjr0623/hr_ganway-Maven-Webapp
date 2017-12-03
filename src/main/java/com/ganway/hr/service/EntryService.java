@@ -37,7 +37,7 @@ public interface EntryService {
    * @param contractId
    * @return
    */
-  public ContractDO findContract(long contractId);
+  public ContractDO findContract(String contractId);
 
   /**
    * 查找合同
@@ -53,7 +53,7 @@ public interface EntryService {
    * @param oldDeleted
    * @return
    */
-  public boolean removeConstract(long contractId, String newDeleted, String oldDeleted);
+  public boolean removeConstract(String contractId, String newDeleted, String oldDeleted);
 
   /**
    * 创建薪酬信息
@@ -82,4 +82,6 @@ public interface EntryService {
    * @return
    */
   public boolean createPost(TbPostDO post);
+  
+  public void updateContract(ContractDO contract);
 }

@@ -95,7 +95,7 @@ public class EntryInfoForm {
   /**
    * 社会工龄
    */
-  private String seniority;
+  private Integer seniority;
 
   /**
    * 是否需要结算
@@ -106,6 +106,8 @@ public class EntryInfoForm {
    * 是否需要考勤
    */
   private String requireAttendance;
+  
+  private String basicId;
 
   public String getId() {
     return id;
@@ -251,11 +253,11 @@ public class EntryInfoForm {
     this.bankCardNo = bankCardNo;
   }
 
-  public String getSeniority() {
+  public Integer getSeniority() {
     return seniority;
   }
 
-  public void setSeniority(String seniority) {
+  public void setSeniority(Integer seniority) {
     this.seniority = seniority;
   }
 
@@ -274,4 +276,13 @@ public class EntryInfoForm {
   public void setRequireAttendance(String requireAttendance) {
     this.requireAttendance = requireAttendance;
   }
+
+	public String getBasicId() {
+		return basicId;
+	}
+	
+	public void setBasicId(String basicId) {
+		this.basicId = basicId;
+	}
+  
 }

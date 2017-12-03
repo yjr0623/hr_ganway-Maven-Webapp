@@ -10,15 +10,15 @@ public interface ContractDao {
 
     int deleteByExample(ContractDOExample example);
 
-    int deleteByPrimaryKey(Long treatyid);
+    //int deleteByPrimaryKey(String treatyid);
 
     int insert(ContractDO record);
 
     int insertSelective(ContractDO record);
 
-    List<ContractDO> selectByExample(ContractDOExample example);
+    List<ContractDO> selectByExample(String basicId);
 
-    ContractDO selectByPrimaryKey(Long treatyid);
+    ContractDO selectByPrimaryKey(String treatyid);
 
     int updateByExampleSelective(@Param("record") ContractDO record, @Param("example") ContractDOExample example);
 

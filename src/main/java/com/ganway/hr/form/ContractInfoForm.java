@@ -57,6 +57,8 @@ public class ContractInfoForm {
    * 职员编号
    */
   private String employeecode;
+  
+  private String basicId;
 
   public String getEmployeecode() {
     return employeecode;
@@ -145,4 +147,13 @@ public class ContractInfoForm {
   public void setRemark(String remark) {
     this.remark = remark;
   }
+
+	public String getBasicId() {
+		return basicId;
+	}
+	
+	public void setBasicId(String basicId) {
+		this.basicId = basicId;
+	}
+  
 }

@@ -10,7 +10,7 @@ import com.ganway.hr.vo.TbBasic;
   
 public interface IBasicDao {  
       
-    public void insertBasic(Candidate candidate);  
+    //public void insertBasic(Candidate candidate);  
       
 	public TbBasic findTbBasicByNum(String num);  
 	

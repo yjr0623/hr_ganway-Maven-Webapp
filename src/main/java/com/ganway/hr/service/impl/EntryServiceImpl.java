@@ -10,6 +10,8 @@ import com.ganway.hr.vo.TbPostDOExample;
 import com.ganway.hr.service.EntryService;
 import com.ganway.hr.vo.TbBasic;
 import java.util.List;
+import java.util.UUID;
+
 import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Service;
  * @JDK 1.8
  * @since 2017/11/25 13:49
  */
-@Service
+@Service("entryService")
 public class EntryServiceImpl implements EntryService {
 
   @Resource
@@ -50,20 +52,18 @@ public class EntryServiceImpl implements EntryService {
   }
 
   @Override
-  public ContractDO findContract(long contractId) {
+  public ContractDO findContract(String contractId) {
     return contractDao.selectByPrimaryKey(contractId);
   }
 
   @Override
-  public List<ContractDO> findGroupContract(String employeeCode) {
-    ContractDOExample example = new ContractDOExample();
-    example.createCriteria()
-        .andEmployeecodeEqualTo(employeeCode);
-    return contractDao.selectByExample(example);
+  public List<ContractDO> findGroupContract(String basicId) {
+    
+    return contractDao.selectByExample(basicId);
   }
 
   @Override
-  public boolean removeConstract(long contractId, String newDeleted, String oldDeleted) {
+  public boolean removeConstract(String contractId, String newDeleted, String oldDeleted) {
     ContractDOExample example = new ContractDOExample();
     example.createCriteria()
         .andTreatyidEqualTo(contractId)
@@ -75,15 +75,15 @@ public class EntryServiceImpl implements EntryService {
 
   @Override
   public boolean createSalary(TbPostDO post) {
+	 post.setId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
     return postDao.insert(post) == 1;
   }
 
   @Override
   public boolean updateSalary(String id,TbPostDO post) {
     TbPostDOExample example = new TbPostDOExample();
-    example.createCriteria()
-        .andIdEqualTo(id);
-    return postDao.updateByExampleSelective(post,example) == 1;
+    example.createCriteria();
+    return postDao.updateByExampleSelective(post,example)>0;
   }
 
   @Override
@@ -93,6 +93,15 @@ public class EntryServiceImpl implements EntryService {
 
   @Override
   public boolean createPost(TbPostDO post) {
+	  post.setId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
+	  post.setDeleted("0");
     return postDao.insert(post) == 1;
   }
+
+	@Override
+	public void updateContract(ContractDO contract) {
+		contractDao.updateByPrimaryKey(contract);
+	}
+  
+  
 }

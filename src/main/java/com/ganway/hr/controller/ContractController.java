@@ -115,7 +115,6 @@ public class ContractController implements BasicConstants{
     try{
       ContractDO contract = new ContractDO();
       Assert.notNull(form,"合同信息不能为空");
-      Assert.hasText(form.getId(),"应聘编号不能为空");
       Assert.hasText(form.getEmployeecode(),"职工编号不能为空");
       Assert.hasText(form.getNewtreatytype(),"创建合同方式不能为空");
       Assert.hasText(form.getTreatytype(),"合同类型不能为空");
@@ -123,10 +122,7 @@ public class ContractController implements BasicConstants{
       Assert.hasText(form.getTreatybegin(),"合同起始日不能为空");
       Assert.hasText(form.getTreatyend(),"合同终止日不能为空");
       Assert.hasText(form.getTreatylast(),"合同年限不能为空");
-      Assert.notNull(entryService.findByEmployee(form.getEmployeecode()),"职工不存在"+form.getEmployeecode());
       
-      TbBasic basic = basicService.load(form.getId());
-      Assert.notNull(basic,"应聘信息不存在");
       Date treatyDate = DateUtils.parseDate(form.getTreatydate(), DateUtils.PATTERN_DATE);
       Date treatyBegin = DateUtils.parseDate(form.getTreatybegin(), DateUtils.PATTERN_DATE);
       Date treatyEnd = DateUtils.parseDate(form.getTreatyend(), DateUtils.PATTERN_DATE);
@@ -135,13 +131,16 @@ public class ContractController implements BasicConstants{
       contract.setTreatybegin(treatyBegin);
       contract.setTreatydate(treatyDate);
       contract.setTreatyend(treatyEnd);
-      contract.setTreatylast(Long.parseLong(form.getTreatylast()));
+      contract.setTreatylast(form.getTreatylast());
       contract.setTreatytype(form.getTreatytype());
-      contract.setPostId(form.getId());
-      contract.setEmployeecode(Long.parseLong(form.getEmployeecode()));
+      contract.setPostId(form.getBasicId());
+      contract.setEmployeecode(form.getEmployeecode());
+      contract.setBasicId(form.getBasicId());
+      contract.setTreatyid("HT"+new Date().getTime());
+      contract.setDeleted("0");
       if(request instanceof MultipartHttpServletRequest){
         MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
-        String targetPath = this.uploadDir+"/"+form.getId()+"/";
+        String targetPath = this.uploadDir+"/"+form.getTreatyid()+"/";
         Iterator<String> iter = req.getFileNames();
         while(iter.hasNext()){
           MultipartFile file = req.getFile(iter.next());
@@ -188,6 +187,7 @@ public class ContractController implements BasicConstants{
       return respBody;
     }
     respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
+    respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
     return respBody;
   }
 
@@ -199,7 +199,7 @@ public class ContractController implements BasicConstants{
    */
   @RequestMapping("find")
   @ResponseBody
-  public RespBody find(long contractId,HttpServletRequest request){
+  public RespBody find(String contractId,HttpServletRequest request){
     logger.debug("查找合同信息:{}",contractId);
     RespBody respBody = new RespBody();
     respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
@@ -216,12 +216,12 @@ public class ContractController implements BasicConstants{
    */
   @RequestMapping("findGroup")
   @ResponseBody
-  public RespBody findGroup(String employeecode,HttpServletRequest request){
-    logger.debug("查找合同信息:{}",employeecode);
+  public RespBody findGroup(String basicId,HttpServletRequest request){
+    logger.debug("查找合同信息:{}",basicId);
     RespBody respBody = new RespBody();
     respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
     respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
-    respBody.setData(JSON.toJSONString(entryService.findGroupContract(employeecode)));
+    respBody.setData(JSON.toJSONString(entryService.findGroupContract(basicId)));
     return respBody;
   }
 
@@ -233,13 +233,46 @@ public class ContractController implements BasicConstants{
    */
   @RequestMapping("remove")
   @ResponseBody
-  public RespBody remove(long contractId, String newDeleted, String oldDeleted,HttpServletRequest request){
+  public RespBody remove(String contractId,HttpServletRequest request){
     logger.debug("删除合同:{}",contractId);
     RespBody respBody = new RespBody();
     respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
     respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
-    respBody.setData(JSON.toJSONString(entryService.removeConstract(contractId,newDeleted,oldDeleted)));
+    respBody.setData(JSON.toJSONString(entryService.removeConstract(contractId,"1","0")));
     return respBody;
+  }
+  
+  @RequestMapping("update")
+  @ResponseBody
+  public RespBody update(@RequestBody ContractInfoForm form) {
+	  RespBody respBody = new RespBody();
+	    respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
+	    respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
+	    ContractDO contract = new ContractDO();
+		try {
+			Date treatyDate = DateUtils.parseDate(form.getTreatydate(), DateUtils.PATTERN_DATE);
+			Date treatyBegin = DateUtils.parseDate(form.getTreatybegin(), DateUtils.PATTERN_DATE);
+		      Date treatyEnd = DateUtils.parseDate(form.getTreatyend(), DateUtils.PATTERN_DATE);
+		    contract.setNewtreatytype(form.getNewtreatytype());
+		      contract.setRemark(form.getRemark());
+		      contract.setTreatybegin(treatyBegin);
+		      contract.setTreatydate(treatyDate);
+		      contract.setTreatyend(treatyEnd);
+		      contract.setTreatylast(form.getTreatylast());
+		      contract.setTreatytype(form.getTreatytype());
+		      contract.setPostId(form.getBasicId());
+		      contract.setEmployeecode(form.getEmployeecode());
+		      contract.setBasicId(form.getBasicId());
+		      contract.setTreatyid(form.getTreatyid());
+		    entryService.updateContract(contract);
+		} catch (ParseException e) {
+			logger.error("参数校验失败.",e);
+		      respBody.setReturnCode(ReturnCode.INVALID_PARAMTER.getCode());
+		      respBody.setReturnMessage(ReturnCode.INVALID_PARAMTER.getMsg()+":日期");
+		      return respBody;
+		}
+	      
+	  return respBody;
   }
 
 
