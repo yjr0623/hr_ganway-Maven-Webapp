@@ -90,6 +90,15 @@ public class InterviewServiceImpl implements IInterviewService {
 		respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
 		respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
 
+		
+		respBody.setData(JSON.toJSONString( queryBasicByform(para)));
+		respBody.setTotal(total);
+		return respBody;
+	}
+	
+	
+	private List<Candidate> queryBasicByform(SelectPara para){
+		
 		List<Candidate> tbCandidateList = candidateDao.queryBasic(para);
 		for (int i = 0; i < tbCandidateList.size(); i++) {
 			tbCandidateList.get(i).setSex(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("sex",tbCandidateList.get(i).getSex())));
@@ -112,9 +121,8 @@ public class InterviewServiceImpl implements IInterviewService {
 				tbCandidateList.get(i).setTbFamilyList(familyDao.queryByBasicId(tbCandidateList.get(i).getId())); 
 			}
 		}
-		respBody.setData(JSON.toJSONString(tbCandidateList));
-		respBody.setTotal(total);
-		return respBody;
+		return tbCandidateList;
+		
 	}
 
 	@Override

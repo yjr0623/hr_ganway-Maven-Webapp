@@ -3,6 +3,7 @@ package com.ganway.hr.controller;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
 import com.ganway.hr.common.BasicConstants;
+import com.ganway.hr.common.DateUtils;
 import com.ganway.hr.common.RespBody;
 import com.ganway.hr.common.ReturnCode;
 import com.ganway.hr.form.ApplyForm;
@@ -128,24 +131,28 @@ public class CandidateController implements BasicConstants {
 	 * @param para
 	 * @param request
 	 * @param response
+	 * @throws UnsupportedEncodingException 
 	 */
 	@ResponseBody
 	@RequestMapping("export")
 	public void export(SelectPara para, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws UnsupportedEncodingException {
+		
+		
+		
 		response.reset(); // 清除buffer缓存
-		Map<String, Object> map = new HashMap<String, Object>();
-		Date now = new Date();
+		XSSFWorkbook workbook = null;
+		// 导出Excel对象
+		workbook = candidateService.exportExcelInfo(para);
+		String  name = workbook.getSheetAt(0).getSheetName();
 		// 指定下载的文件名
+		
 		response.setHeader("Content-Disposition",
-				"attachment;filename=" + now.getTime() + ".xlsx");
+				"attachment;filename=" + new String( name.getBytes( "gb2312" ), "ISO8859-1" )+DateUtils.getNowDateTimeStr() + ".xlsx");
 		response.setContentType("application/vnd.ms-excel;charset=UTF-8");
 		response.setHeader("Pragma", "no-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
-		XSSFWorkbook workbook = null;
-		// 导出Excel对象
-		workbook = candidateService.exportExcelInfo(para, "candidate");
 
 		OutputStream output;
 		try {

@@ -29,7 +29,7 @@ public interface ICandidateService {
 	
 	public Candidate queryByBasicId(String basicId);
 	
-	public XSSFWorkbook exportExcelInfo(SelectPara para, String parma);
+	public XSSFWorkbook exportExcelInfo(SelectPara para);
 
 
 

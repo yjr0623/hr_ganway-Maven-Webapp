@@ -244,10 +244,10 @@
 			#{deleted },
 			#{cre_pro_id },
 			#{created_by },
-			CURDATE(),
+			sysdate,
 			#{mod_pro_id },
 			#{last_modified_by },
-			CURDATE(),
+			sysdate,
 			#{post },
 			#{applicationArea },
 			#{exp_salary },
@@ -413,7 +413,7 @@
 			<if test="last_modified_by != null">
 				last_modified_by = #{last_modified_by,jdbcType=VARCHAR},
 			</if>
-				last_modified_date=CURDATE(),
+				last_modified_date=sysdate,
 			<if test="post != null">
 				post = #{post,jdbcType=VARCHAR},
 			</if>
@@ -439,14 +439,14 @@
 
 	</update>
 	<update id="updateBasicByIdAndStatus" parameterType="java.util.Map">
-	update tb_basic set status = #{status }, last_modified_date = CURDATE()   where id = #{id}
+	update tb_basic set status = #{status }, last_modified_date = sysdate   where id = #{id}
 	</update>
 
 
 	<update id="updateCanToInterView"  parameterType="com.ganway.hr.form.ApplyForm">
 	update tb_basic 	
 	<set>
-	last_modified_date=CURDATE(),
+	last_modified_date=sysdate,
 	<if test="status != null">
 		status=#{status }
 	</if>

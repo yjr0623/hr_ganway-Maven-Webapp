@@ -6,6 +6,9 @@ package com.ganway.hr.vo;
  *
  */
 public class SelectPara {
+	
+	
+	private String export;
 
 	/**
 	 * 应聘者姓名
@@ -233,6 +236,12 @@ public class SelectPara {
 
 	public void setEmployeecode(String employeecode) {
 		this.employeecode = employeecode;
+	}
+	public String getExport() {
+		return export;
+	}
+	public void setExport(String export) {
+		this.export = export;
 	}
 	
 }
