@@ -113,6 +113,9 @@ public class InterviewServiceImpl implements IInterviewService {
 								.getId()));
 			} else if ("3".equals(para.getStatus())
 					|| "2".equals(para.getStatus())) {
+				tbCandidateList.get(i).setInterviewInfo(
+						interviewInfoDao.queryByBasicId(tbCandidateList.get(i)
+								.getId()));
 				Map<String,String> map = new HashMap<String, String>();
 				map.put("basicId", tbCandidateList.get(i).getId());
 				map.put("moveTo", para.getStatus());

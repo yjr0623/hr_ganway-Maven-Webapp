@@ -217,8 +217,11 @@ public class CandidateServiceImpl implements ICandidateService {
 					tbCandidateList.get(i).setInterviewInfo(
 							interviewInfoDao.queryByBasicId(tbCandidateList.get(i)
 									.getId()));
-				} else if ("3".equals(para.getStatus())
-						|| "2".equals(para.getStatus())) {
+			}else if ("3".equals(para.getStatus())
+					|| "2".equals(para.getStatus())) {
+				tbCandidateList.get(i).setInterviewInfo(
+						interviewInfoDao.queryByBasicId(tbCandidateList.get(i)
+								.getId()));
 					Map<String,String> map = new HashMap<String, String>();
 					map.put("basicId", tbCandidateList.get(i).getId());
 					map.put("moveTo", para.getStatus());
@@ -264,6 +267,11 @@ public class CandidateServiceImpl implements ICandidateService {
 				BeanUtils.copyProperties(c.getInterviewInfo(),tb);
 				tb.setInterviewdate( DateUtils.format(c.getInterviewInfo().getInterviewdate(),
 					"yyyy/MM/dd"));
+				if(c.getInterviewInfo().getStatus()==null){
+					tb.setIsrecord("否");
+				}else{
+					tb.setIsrecord("是");
+				}
 			}
 			tb.setDate_of_birth( DateUtils.format(c.getDate_of_birth(),
 					"yyyy/MM/dd"));
