@@ -20,7 +20,7 @@ public interface TbPostDao {
 
     TbPostDO selectByPrimaryKey(String id);
 
-    int updateByExampleSelective(@Param("record") TbPostDO record, @Param("example") TbPostDOExample example);
+    int updateByExampleSelective(TbPostDO record);
 
     int updateByExample(@Param("record") TbPostDO record, @Param("example") TbPostDOExample example);
 

@@ -10,7 +10,7 @@ public interface ContractDao {
 
     int deleteByExample(ContractDOExample example);
 
-    //int deleteByPrimaryKey(String treatyid);
+    int deleteByPrimaryKey(String treatyid);
 
     int insert(ContractDO record);
 
@@ -20,7 +20,7 @@ public interface ContractDao {
 
     ContractDO selectByPrimaryKey(String treatyid);
 
-    int updateByExampleSelective(@Param("record") ContractDO record, @Param("example") ContractDOExample example);
+    int updateByExampleSelective(ContractDO record);
 
     int updateByExample(@Param("record") ContractDO record, @Param("example") ContractDOExample example);
 

@@ -143,7 +143,7 @@ public class TbPostDOExample {
         }
 
         public Criteria andIdEqualTo(String value) {
-            addCriterion("ID =", value, "id");
+            addCriterion("basicId =", value, "basicId");
             return (Criteria) this;
         }
 

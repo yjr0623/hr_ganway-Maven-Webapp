@@ -136,8 +136,9 @@ public class ContractController implements BasicConstants{
       contract.setPostId(form.getBasicId());
       contract.setEmployeecode(form.getEmployeecode());
       contract.setBasicId(form.getBasicId());
-      contract.setTreatyid("HT"+new Date().getTime());
+      contract.setTreatyid(form.getTreatyid());
       contract.setDeleted("0");
+      contract.setPath(form.getPath());
       if(request instanceof MultipartHttpServletRequest){
         MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
         String targetPath = this.uploadDir+"/"+form.getTreatyid()+"/";
@@ -231,9 +232,9 @@ public class ContractController implements BasicConstants{
    * @param request
    * @return
    */
-  @RequestMapping("remove")
+  @RequestMapping(value="remove",method = RequestMethod.POST)
   @ResponseBody
-  public RespBody remove(String contractId,HttpServletRequest request){
+  public RespBody remove(String contractId,String newDeleted, String oldDeleted,HttpServletRequest request){
     logger.debug("删除合同:{}",contractId);
     RespBody respBody = new RespBody();
     respBody.setReturnCode(ReturnCode.SUCCESS.getCode());

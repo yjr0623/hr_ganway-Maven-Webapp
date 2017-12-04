@@ -63,7 +63,8 @@ public class CandidateController implements BasicConstants {
 	 * @author YAO
 	 * @return
 	 */
-	@RequestMapping("addCandidate")
+	@RequestMapping(value="addCandidate",method=RequestMethod.POST)
+	@ResponseBody
 	public RespBody addCandidate(@RequestBody Candidate candidate) {
 		logger.debug("新增求职者信息:{}", candidate);
 		RespBody respBody = new RespBody();

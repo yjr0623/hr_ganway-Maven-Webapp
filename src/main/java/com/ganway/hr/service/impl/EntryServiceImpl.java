@@ -9,7 +9,11 @@ import com.ganway.hr.vo.TbPostDO;
 import com.ganway.hr.vo.TbPostDOExample;
 import com.ganway.hr.service.EntryService;
 import com.ganway.hr.vo.TbBasic;
+
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -48,7 +52,13 @@ public class EntryServiceImpl implements EntryService {
 
   @Override
   public boolean createContract(ContractDO contract) {
-    return contractDao.insert(contract) == 1;
+	  if(contract.getTreatyid().equals("1")) {
+		  contract.setTreatyid("HT"+new Date().getTime());
+		  return contractDao.insert(contract) == 1;
+	  } else {
+		  return contractDao.updateByPrimaryKey(contract) == 1;
+	  }
+    
   }
 
   @Override
@@ -64,13 +74,11 @@ public class EntryServiceImpl implements EntryService {
 
   @Override
   public boolean removeConstract(String contractId, String newDeleted, String oldDeleted) {
-    ContractDOExample example = new ContractDOExample();
-    example.createCriteria()
-        .andTreatyidEqualTo(contractId)
-        .andDeletedEqualTo(oldDeleted);
+   
     ContractDO record = new ContractDO();
     record.setDeleted(newDeleted);
-    return contractDao.updateByExampleSelective(record,example) == 1;
+    record.setTreatyid(contractId);
+    return contractDao.deleteByPrimaryKey(contractId) == 1;
   }
 
   @Override
@@ -81,9 +89,8 @@ public class EntryServiceImpl implements EntryService {
 
   @Override
   public boolean updateSalary(String id,TbPostDO post) {
-    TbPostDOExample example = new TbPostDOExample();
-    example.createCriteria();
-    return postDao.updateByExampleSelective(post,example)>0;
+    
+    return postDao.updateByExampleSelective(post)>0;
   }
 
   @Override
@@ -95,7 +102,12 @@ public class EntryServiceImpl implements EntryService {
   public boolean createPost(TbPostDO post) {
 	  post.setId(UUID.randomUUID().toString().replace("-", "").toUpperCase());
 	  post.setDeleted("0");
-    return postDao.insert(post) == 1;
+	  postDao.insert(post);
+	  Map<String,String> map = new HashMap<String, String>();
+		map.put("id",post.getBasicId());
+		map.put("status", "0");
+		basicDao.updateBasicByIdAndStatus(map);
+    return true;
   }
 
 	@Override
