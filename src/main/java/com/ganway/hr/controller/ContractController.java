@@ -9,6 +9,7 @@ import com.ganway.hr.vo.ContractDO;
 import com.ganway.hr.form.ContractInfoForm;
 import com.ganway.hr.service.BasicService;
 import com.ganway.hr.service.EntryService;
+import com.ganway.hr.service.ICandidateService;
 import com.ganway.hr.vo.TbBasic;
 
 import java.io.File;
@@ -30,6 +31,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -54,15 +57,19 @@ public class ContractController implements BasicConstants{
 
   @Resource
   private EntryService    entryService;
-
-  @Value("upload.dir")
-  private String          uploadDir;
+  
+  
+  @Value("${upload.dir}")
+  private String upload;
+  
   
   @ResponseBody
   @RequestMapping(value="fileUpload", method = RequestMethod.POST)
   public RespBody  springUpload(HttpServletRequest request) throws IllegalStateException, IOException
   {
-	  String path = "";
+	  
+	  String uploadPath = "";
+	  
        //将当前上下文初始化给  CommonsMutipartResolver （多部分解析器）
       CommonsMultipartResolver multipartResolver=new CommonsMultipartResolver(
               request.getSession().getServletContext());
@@ -80,20 +87,18 @@ public class ContractController implements BasicConstants{
               MultipartFile file=multiRequest.getFile(iter.next().toString());
               if(file!=null)
               {
-                   path="/usr/yaojr/fileUpload"+file.getOriginalFilename();
+            	  uploadPath = upload+file.getOriginalFilename();
                   //上传
-                  file.transferTo(new File(path));
+                  file.transferTo(new File(uploadPath));
               }
-               
           }
-         
       }
-      logger.debug("文件上传路径 : ",path);
+      logger.debug("文件上传路径 : ",uploadPath);
       
       RespBody respBody = new RespBody();
       respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
       respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
-      respBody.setData(path);
+      respBody.setData("服务器文件路径 : "+uploadPath);
       return respBody;
   }
   
@@ -141,7 +146,7 @@ public class ContractController implements BasicConstants{
       contract.setPath(form.getPath());
       if(request instanceof MultipartHttpServletRequest){
         MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
-        String targetPath = this.uploadDir+"/"+form.getTreatyid()+"/";
+        String targetPath = upload+"/"+form.getTreatyid()+"/";
         Iterator<String> iter = req.getFileNames();
         while(iter.hasNext()){
           MultipartFile file = req.getFile(iter.next());

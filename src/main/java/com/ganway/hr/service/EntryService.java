@@ -3,6 +3,8 @@ package com.ganway.hr.service;
 import com.ganway.hr.vo.ContractDO;
 import com.ganway.hr.vo.TbPostDO;
 import com.ganway.hr.vo.TbBasic;
+import com.ganway.hr.vo.TbTypeInfo;
+
 import java.util.List;
 
 /**
@@ -84,4 +86,6 @@ public interface EntryService {
   public boolean createPost(TbPostDO post);
   
   public void updateContract(ContractDO contract);
+
+  public String getUploadPath(String type_id);
 }

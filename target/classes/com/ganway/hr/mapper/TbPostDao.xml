@@ -163,7 +163,7 @@
       UNIT, CITY, SOCIAL_SECURITY, 
       BATCH_DATE, DELETED, CRE_PRO_ID, 
       CREATED_BY, CREATED_DATE, MOD_PRO_ID, 
-      LAST_MODIFIED_BY, LAST_MODIFIED_DATE)
+      LAST_MODIFIED_BY, LAST_MODIFIED_DATE,BASICID)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{employeecode,jdbcType=VARCHAR}, 
       #{mobile,jdbcType=VARCHAR}, #{deptId,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR}, 
       #{workSystemId,jdbcType=VARCHAR}, #{idNum,jdbcType=VARCHAR}, #{date_of_birth,jdbcType=DATE}, 
@@ -177,9 +177,9 @@
       #{tradeUnionsFee,jdbcType=DOUBLE}, #{jobType,jdbcType=VARCHAR}, #{socialNum,jdbcType=DOUBLE}, 
       #{socialAcc,jdbcType=VARCHAR}, #{housingAcc,jdbcType=VARCHAR}, #{accProperties,jdbcType=VARCHAR}, 
       #{unit,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{socialSecurity,jdbcType=VARCHAR}, 
-      #{batchDate,jdbcType=DATE}, #{deleted,jdbcType=VARCHAR}, #{creProId,jdbcType=INTEGER}, 
-      #{createdBy,jdbcType=INTEGER}, #{createdDate,jdbcType=DATE}, #{modProId,jdbcType=DATE}, 
-      #{lastModifiedBy,jdbcType=INTEGER}, #{lastModifiedDate,jdbcType=DATE})
+      #{batchDate,jdbcType=DATE}, #{deleted,jdbcType=VARCHAR}, #{creProId,jdbcType=VARCHAR}, 
+      #{createdBy,jdbcType=VARCHAR}, #{createdDate,jdbcType=DATE}, #{modProId,jdbcType=VARCHAR}, 
+      #{lastModifiedBy,jdbcType=VARCHAR}, #{lastModifiedDate,jdbcType=DATE},#{basicId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ganway.hr.vo.TbPostDO">
     insert into tb_post
@@ -325,6 +325,9 @@
       <if test="lastModifiedDate != null">
         LAST_MODIFIED_DATE,
       </if>
+      <if test="basicId != null">
+      BASICID
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -451,22 +454,25 @@
         #{deleted,jdbcType=VARCHAR},
       </if>
       <if test="creProId != null">
-        #{creProId,jdbcType=INTEGER},
+        #{creProId,jdbcType=VARCHAR},
       </if>
       <if test="createdBy != null">
-        #{createdBy,jdbcType=INTEGER},
+        #{createdBy,jdbcType=VARCHAR},
       </if>
       <if test="createdDate != null">
         #{createdDate,jdbcType=DATE},
       </if>
       <if test="modProId != null">
-        #{modProId,jdbcType=DATE},
+        #{modProId,jdbcType=VARCHAR},
       </if>
       <if test="lastModifiedBy != null">
-        #{lastModifiedBy,jdbcType=INTEGER},
+        #{lastModifiedBy,jdbcType=VARCHAR},
       </if>
       <if test="lastModifiedDate != null">
         #{lastModifiedDate,jdbcType=DATE},
+      </if>
+      <if test="basicId != null">
+      	#{basicId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -476,154 +482,149 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="com.ganway.hr.vo.TbPostDO">
     update tb_post
     <set>
-      <if test="record.id != null">
-        ID = #{record.id,jdbcType=VARCHAR},
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        NAME = #{record.name,jdbcType=VARCHAR},
+      <if test="employeecode != null">
+        EMPLOYEECODE = #{employeecode,jdbcType=VARCHAR},
       </if>
-      <if test="record.employeecode != null">
-        EMPLOYEECODE = #{record.employeecode,jdbcType=VARCHAR},
+      <if test="mobile != null">
+        MOBILE = #{mobile,jdbcType=VARCHAR},
       </if>
-      <if test="record.mobile != null">
-        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      <if test="deptId != null">
+        DEPT_ID = #{deptId,jdbcType=VARCHAR},
       </if>
-      <if test="record.deptId != null">
-        DEPT_ID = #{record.deptId,jdbcType=VARCHAR},
+      <if test="jobId != null">
+        JOB_ID = #{jobId,jdbcType=VARCHAR},
       </if>
-      <if test="record.jobId != null">
-        JOB_ID = #{record.jobId,jdbcType=VARCHAR},
+      <if test="workSystemId != null">
+        WORK_SYSTEM_ID = #{workSystemId,jdbcType=VARCHAR},
       </if>
-      <if test="record.workSystemId != null">
-        WORK_SYSTEM_ID = #{record.workSystemId,jdbcType=VARCHAR},
+      <if test="idNum != null">
+        ID_NUM = #{idNum,jdbcType=VARCHAR},
       </if>
-      <if test="record.idNum != null">
-        ID_NUM = #{record.idNum,jdbcType=VARCHAR},
+      <if test="date_of_birth != null">
+        DATE_OF_BIRTH = #{date_of_birth,jdbcType=DATE},
       </if>
-      <if test="record.date_of_birth != null">
-        DATE_OF_BIRTH = #{record.date_of_birth,jdbcType=DATE},
+      <if test="sex != null">
+        SEX = #{sex,jdbcType=VARCHAR},
       </if>
-      <if test="record.sex != null">
-        SEX = #{record.sex,jdbcType=VARCHAR},
+      <if test="jobState != null">
+        JOB_STATE = #{jobState,jdbcType=VARCHAR},
       </if>
-      <if test="record.jobState != null">
-        JOB_STATE = #{record.jobState,jdbcType=VARCHAR},
+      <if test="entryDate != null">
+        ENTRY_DATE = #{entryDate,jdbcType=DATE},
       </if>
-      <if test="record.entryDate != null">
-        ENTRY_DATE = #{record.entryDate,jdbcType=DATE},
+      <if test="proPeriod != null">
+        PRO_PERIOD = #{proPeriod,jdbcType=INTEGER},
       </if>
-      <if test="record.proPeriod != null">
-        PRO_PERIOD = #{record.proPeriod,jdbcType=INTEGER},
+      <if test="formalDate != null">
+        FORMAL_DATE = #{formalDate,jdbcType=DATE},
       </if>
-      <if test="record.formalDate != null">
-        FORMAL_DATE = #{record.formalDate,jdbcType=DATE},
+      <if test="quitDate != null">
+        QUIT_DATE = #{quitDate,jdbcType=DATE},
       </if>
-      <if test="record.quitDate != null">
-        QUIT_DATE = #{record.quitDate,jdbcType=DATE},
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="record.email != null">
-        EMAIL = #{record.email,jdbcType=VARCHAR},
+      <if test="bankCardNo != null">
+        BANK_CARD_NO = #{bankCardNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankCardNo != null">
-        BANK_CARD_NO = #{record.bankCardNo,jdbcType=VARCHAR},
+      <if test="seniority != null">
+        SENIORITY = #{seniority,jdbcType=INTEGER},
       </if>
-      <if test="record.seniority != null">
-        SENIORITY = #{record.seniority,jdbcType=INTEGER},
+      <if test="requireSettlement != null">
+        REQUIRE_SETTLEMENT = #{requireSettlement,jdbcType=VARCHAR},
       </if>
-      <if test="record.requireSettlement != null">
-        REQUIRE_SETTLEMENT = #{record.requireSettlement,jdbcType=VARCHAR},
+      <if test="requireAttendance != null">
+        REQUIRE_ATTENDANCE = #{requireAttendance,jdbcType=VARCHAR},
       </if>
-      <if test="record.requireAttendance != null">
-        REQUIRE_ATTENDANCE = #{record.requireAttendance,jdbcType=VARCHAR},
+      <if test="post != null">
+        POST = #{post,jdbcType=VARCHAR},
       </if>
-      <if test="record.post != null">
-        POST = #{record.post,jdbcType=VARCHAR},
+      <if test="posttype != null">
+        POSTTYPE = #{posttype,jdbcType=VARCHAR},
       </if>
-      <if test="record.posttype != null">
-        POSTTYPE = #{record.posttype,jdbcType=VARCHAR},
+      <if test="salaryId != null">
+        SALARY_ID = #{salaryId,jdbcType=VARCHAR},
       </if>
-      <if test="record.salaryId != null">
-        SALARY_ID = #{record.salaryId,jdbcType=VARCHAR},
+      <if test="perfId != null">
+        PERF_ID = #{perfId,jdbcType=VARCHAR},
       </if>
-      <if test="record.perfId != null">
-        PERF_ID = #{record.perfId,jdbcType=VARCHAR},
+      <if test="discount != null">
+        DISCOUNT = #{discount,jdbcType=DOUBLE},
       </if>
-      <if test="record.discount != null">
-        DISCOUNT = #{record.discount,jdbcType=DOUBLE},
+      <if test="senioritySalary != null">
+        SENIORITY_SALARY = #{senioritySalary,jdbcType=DOUBLE},
       </if>
-      <if test="record.senioritySalary != null">
-        SENIORITY_SALARY = #{record.senioritySalary,jdbcType=DOUBLE},
+      <if test="otherAllowance != null">
+        OTHER_ALLOWANCE = #{otherAllowance,jdbcType=DOUBLE},
       </if>
-      <if test="record.otherAllowance != null">
-        OTHER_ALLOWANCE = #{record.otherAllowance,jdbcType=DOUBLE},
+      <if test="trafficAllowance != null">
+        TRAFFIC_ALLOWANCE = #{trafficAllowance,jdbcType=DOUBLE},
       </if>
-      <if test="record.trafficAllowance != null">
-        TRAFFIC_ALLOWANCE = #{record.trafficAllowance,jdbcType=DOUBLE},
+      <if test="foodAllowance != null">
+        FOOD_ALLOWANCE = #{foodAllowance,jdbcType=DOUBLE},
       </if>
-      <if test="record.foodAllowance != null">
-        FOOD_ALLOWANCE = #{record.foodAllowance,jdbcType=DOUBLE},
+      <if test="tradeUnions != null">
+        TRADE_UNIONS = #{tradeUnions,jdbcType=VARCHAR},
       </if>
-      <if test="record.tradeUnions != null">
-        TRADE_UNIONS = #{record.tradeUnions,jdbcType=VARCHAR},
+      <if test="tradeUnionsFee != null">
+        TRADE_UNIONS_FEE = #{tradeUnionsFee,jdbcType=DOUBLE},
       </if>
-      <if test="record.tradeUnionsFee != null">
-        TRADE_UNIONS_FEE = #{record.tradeUnionsFee,jdbcType=DOUBLE},
+      <if test="jobType != null">
+        JOB_TYPE = #{jobType,jdbcType=VARCHAR},
       </if>
-      <if test="record.jobType != null">
-        JOB_TYPE = #{record.jobType,jdbcType=VARCHAR},
+      <if test="socialNum != null">
+        SOCIAL_NUM = #{socialNum,jdbcType=DOUBLE},
       </if>
-      <if test="record.socialNum != null">
-        SOCIAL_NUM = #{record.socialNum,jdbcType=DOUBLE},
+      <if test="socialAcc != null">
+        SOCIAL_ACC = #{socialAcc,jdbcType=VARCHAR},
       </if>
-      <if test="record.socialAcc != null">
-        SOCIAL_ACC = #{record.socialAcc,jdbcType=VARCHAR},
+      <if test="housingAcc != null">
+        HOUSING_ACC = #{housingAcc,jdbcType=VARCHAR},
       </if>
-      <if test="record.housingAcc != null">
-        HOUSING_ACC = #{record.housingAcc,jdbcType=VARCHAR},
+      <if test="accProperties != null">
+        ACC_PROPERTIES = #{accProperties,jdbcType=VARCHAR},
       </if>
-      <if test="record.accProperties != null">
-        ACC_PROPERTIES = #{record.accProperties,jdbcType=VARCHAR},
+      <if test="unit != null">
+        UNIT = #{unit,jdbcType=VARCHAR},
       </if>
-      <if test="record.unit != null">
-        UNIT = #{record.unit,jdbcType=VARCHAR},
+      <if test="city != null">
+        CITY = #{city,jdbcType=VARCHAR},
       </if>
-      <if test="record.city != null">
-        CITY = #{record.city,jdbcType=VARCHAR},
+      <if test="socialSecurity != null">
+        SOCIAL_SECURITY = #{socialSecurity,jdbcType=VARCHAR},
       </if>
-      <if test="record.socialSecurity != null">
-        SOCIAL_SECURITY = #{record.socialSecurity,jdbcType=VARCHAR},
+      <if test="batchDate != null">
+        BATCH_DATE = #{batchDate,jdbcType=DATE},
       </if>
-      <if test="record.batchDate != null">
-        BATCH_DATE = #{record.batchDate,jdbcType=DATE},
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=VARCHAR},
       </if>
-      <if test="record.deleted != null">
-        DELETED = #{record.deleted,jdbcType=VARCHAR},
+      <if test="creProId != null">
+        CRE_PRO_ID = #{creProId,jdbcType=VARCHAR},
       </if>
-      <if test="record.creProId != null">
-        CRE_PRO_ID = #{record.creProId,jdbcType=INTEGER},
+      <if test="createdBy != null">
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
       </if>
-      <if test="record.createdBy != null">
-        CREATED_BY = #{record.createdBy,jdbcType=INTEGER},
+      <if test="createdDate != null">
+        CREATED_DATE = #{createdDate,jdbcType=DATE},
       </if>
-      <if test="record.createdDate != null">
-        CREATED_DATE = #{record.createdDate,jdbcType=DATE},
+      <if test="modProId != null">
+        MOD_PRO_ID = #{modProId,jdbcType=VARCHAR},
       </if>
-      <if test="record.modProId != null">
-        MOD_PRO_ID = #{record.modProId,jdbcType=DATE},
+      <if test="lastModifiedBy != null">
+        LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=VARCHAR},
       </if>
-      <if test="record.lastModifiedBy != null">
-        LAST_MODIFIED_BY = #{record.lastModifiedBy,jdbcType=INTEGER},
-      </if>
-      <if test="record.lastModifiedDate != null">
-        LAST_MODIFIED_DATE = #{record.lastModifiedDate,jdbcType=DATE},
+      <if test="lastModifiedDate != null">
+        LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=DATE},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
+    where basicId=#{basicId,jdbcType=VARCHAR}
   </update>
   <update id="updateByExample" parameterType="map">
     update tb_post
@@ -668,11 +669,11 @@
       SOCIAL_SECURITY = #{record.socialSecurity,jdbcType=VARCHAR},
       BATCH_DATE = #{record.batchDate,jdbcType=DATE},
       DELETED = #{record.deleted,jdbcType=VARCHAR},
-      CRE_PRO_ID = #{record.creProId,jdbcType=INTEGER},
-      CREATED_BY = #{record.createdBy,jdbcType=INTEGER},
+      CRE_PRO_ID = #{record.creProId,jdbcType=VARCHAR},
+      CREATED_BY = #{record.createdBy,jdbcType=VARCHAR},
       CREATED_DATE = #{record.createdDate,jdbcType=DATE},
-      MOD_PRO_ID = #{record.modProId,jdbcType=DATE},
-      LAST_MODIFIED_BY = #{record.lastModifiedBy,jdbcType=INTEGER},
+      MOD_PRO_ID = #{record.modProId,jdbcType=VARCHAR},
+      LAST_MODIFIED_BY = #{record.lastModifiedBy,jdbcType=VARCHAR},
       LAST_MODIFIED_DATE = #{record.lastModifiedDate,jdbcType=DATE}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -802,19 +803,19 @@
         DELETED = #{deleted,jdbcType=VARCHAR},
       </if>
       <if test="creProId != null">
-        CRE_PRO_ID = #{creProId,jdbcType=INTEGER},
+        CRE_PRO_ID = #{creProId,jdbcType=VARCHAR},
       </if>
       <if test="createdBy != null">
-        CREATED_BY = #{createdBy,jdbcType=INTEGER},
+        CREATED_BY = #{createdBy,jdbcType=VARCHAR},
       </if>
       <if test="createdDate != null">
         CREATED_DATE = #{createdDate,jdbcType=DATE},
       </if>
       <if test="modProId != null">
-        MOD_PRO_ID = #{modProId,jdbcType=DATE},
+        MOD_PRO_ID = #{modProId,jdbcType=VARCHAR},
       </if>
       <if test="lastModifiedBy != null">
-        LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=INTEGER},
+        LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=VARCHAR},
       </if>
       <if test="lastModifiedDate != null">
         LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=DATE},
@@ -864,11 +865,11 @@
       SOCIAL_SECURITY = #{socialSecurity,jdbcType=VARCHAR},
       BATCH_DATE = #{batchDate,jdbcType=DATE},
       DELETED = #{deleted,jdbcType=VARCHAR},
-      CRE_PRO_ID = #{creProId,jdbcType=INTEGER},
-      CREATED_BY = #{createdBy,jdbcType=INTEGER},
+      CRE_PRO_ID = #{creProId,jdbcType=VARCHAR},
+      CREATED_BY = #{createdBy,jdbcType=VARCHAR},
       CREATED_DATE = #{createdDate,jdbcType=DATE},
-      MOD_PRO_ID = #{modProId,jdbcType=DATE},
-      LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=INTEGER},
+      MOD_PRO_ID = #{modProId,jdbcType=VARCHAR},
+      LAST_MODIFIED_BY = #{lastModifiedBy,jdbcType=VARCHAR},
       LAST_MODIFIED_DATE = #{lastModifiedDate,jdbcType=DATE}
     where ID = #{id,jdbcType=VARCHAR}
   </update>

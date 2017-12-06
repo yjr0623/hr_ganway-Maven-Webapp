@@ -5,7 +5,7 @@
     <id column="ID" jdbcType="BIGINT" property="id" />
      <id column="BASICID" jdbcType="CHAR" property="basicId" />
     <result column="INTERVIEWER" jdbcType="VARCHAR" property="interviewer" />
-    <result column="INTERVIEWDATE" jdbcType="TIMESTAMP" property="interviewdate" />
+    <result column="INTERVIEWDATE" jdbcType="DATE" property="interviewdate" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="REMINDTYPE" jdbcType="VARCHAR" property="remindtype" />
     <result column="STATUS" jdbcType="VARCHAR" property="status" />
@@ -134,9 +134,9 @@
   </delete>
   
   <insert id="insertInterviewInfo" parameterType="com.ganway.hr.form.ApplyForm">
-   insert into tb_interviewinfo (BASICID,INTERVIEWER,INTERVIEWDATE,remindType,REMARK)
+   insert into tb_interviewinfo (BASICID,INTERVIEWER,INTERVIEWDATE,remindType,REMARK,employeecode)
    
-   			values (#{id},#{interviewer},#{interviewdate1},#{remindType},#{remarks})
+   			values (#{id},#{interviewer},#{interviewdate1},#{remindType},#{remarks},#{employeecode})
   
   
   </insert>

@@ -93,7 +93,7 @@ public class CandidateController implements BasicConstants {
 		}
 		respBody.setReturnCode(ReturnCode.SUCCESS.getCode());
 		respBody.setReturnMessage(ReturnCode.SUCCESS.getMsg());
-		form.setStatus("4");
+		form.setStatus("5");
 		candidateService.applyIntervers(form);
 
 		return respBody;

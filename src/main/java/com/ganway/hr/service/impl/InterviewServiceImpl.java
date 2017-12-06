@@ -106,13 +106,13 @@ public class InterviewServiceImpl implements IInterviewService {
 			tbCandidateList.get(i).setPost(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("post",tbCandidateList.get(i).getPost())));
 			tbCandidateList.get(i).setMarriage(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("marriage",tbCandidateList.get(i).getMarriage())));
 			tbCandidateList.get(i).setApplicationArea(typeInfoDao.getInfoByMap(TypeInfoUtils.getMap("applicationArea",tbCandidateList.get(i).getApplicationArea())));
-			if ("5".equals(para.getStatus())) {
+//			if ("5".equals(para.getStatus())) {
 
-				tbCandidateList.get(i).setInterviewInfo(
-						interviewInfoDao.queryByBasicId(tbCandidateList.get(i)
-								.getId()));
-			} else if ("3".equals(para.getStatus())
-					|| "2".equals(para.getStatus())) {
+//				tbCandidateList.get(i).setInterviewInfo(
+//						interviewInfoDao.queryByBasicId(tbCandidateList.get(i)
+//								.getId()));
+//			} else if ("3".equals(para.getStatus())
+//					|| "2".equals(para.getStatus())) {
 				tbCandidateList.get(i).setInterviewInfo(
 						interviewInfoDao.queryByBasicId(tbCandidateList.get(i)
 								.getId()));
@@ -123,7 +123,7 @@ public class InterviewServiceImpl implements IInterviewService {
 				tbCandidateList.get(i).setTbCompanyList(companyDao.queryByBasicId(tbCandidateList.get(i).getId())); 
 				tbCandidateList.get(i).setTbEducationList(educationDao.queryByBasicId(tbCandidateList.get(i).getId())); 
 				tbCandidateList.get(i).setTbFamilyList(familyDao.queryByBasicId(tbCandidateList.get(i).getId())); 
-			}
+//			}
 		}
 		return tbCandidateList;
 		

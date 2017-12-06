@@ -5,26 +5,7 @@
     version="3.0">  
     <display-name>Archetype Created Web Application</display-name> 
     
-	 <filter>
-   		<filter-name>cros</filter-name>
-  		<filter-class>com.ganway.hr.filter.HeadersCORSFilter</filter-class>
-  	</filter>
-  	<filter-mapping>
-  		<filter-name>cros</filter-name>
-		<url-pattern>/*</url-pattern>
-  	</filter-mapping> 
-  
-  	
-    <!-- 加载spring bean -->  
-    <context-param>  
-         <param-name>contextConfigLocation</param-name>  
-        <param-value>classpath:applicationContext.xml</param-value>  
-    </context-param>  
-    <listener>  
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
-    </listener>  
-      
-    <!-- 编码过滤器 -->  
+     <!-- 编码过滤器 -->  
     <filter>  
         <filter-name>encodingFilter</filter-name>  
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
@@ -40,6 +21,41 @@
         <url-pattern>/*</url-pattern>  
     </filter-mapping> 
     
+	 <filter>
+   		<filter-name>cros</filter-name>
+  		<filter-class>com.ganway.hr.filter.HeadersCORSFilter</filter-class>
+  	</filter>
+  	<filter-mapping>
+  		<filter-name>cros</filter-name>
+		<url-pattern>/*</url-pattern>
+  	</filter-mapping> 
+  <!--yao start  20171205 -->
+   
+ 	<!-- <filter>
+		<filter-name>webContextFilter</filter-name>
+		<filter-class>org.ponly.spring.web.RefreshableDelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetFilterLifecycle</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>webContextFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>   -->
+	
+  	<!-- end  20171205 -->
+    <!-- 加载spring bean -->  
+    <context-param>  
+         <param-name>contextConfigLocation</param-name>  
+        <param-value>classpath:applicationContext.xml</param-value>  
+    </context-param>  
+    <listener>  
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>  
+    </listener>  
+      
+   
+    
  <welcome-file-list>
     <welcome-file>index.html</welcome-file>
   </welcome-file-list>
@@ -50,7 +66,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>  
         <init-param>  
             <param-name>contextConfigLocation</param-name>  
-            <param-value>/WEB-INF/spring-mvc.xml</param-value>  
+            <param-value>classpath:spring-mvc.xml</param-value>  
         </init-param>  
         <load-on-startup>1</load-on-startup>  
         <async-supported>true</async-supported>  

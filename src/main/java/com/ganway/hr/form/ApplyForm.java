@@ -1,17 +1,23 @@
 package com.ganway.hr.form;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class ApplyForm {
 	/**
 	 * 面试官
 	 */
 	private String interviewer;
+	private String employeecode;
 	/**
 	 * 面试时间
 	 */
-	private String interviewdate;
-	private String interviewdate1;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date interviewdate;
+	@DateTimeFormat(pattern="yyyy-MM-dd")
+	private Date interviewdate1;
 	
 	private String remindType;
 	private String status;
@@ -31,18 +37,14 @@ public class ApplyForm {
 	public void setInterviewer(String interviewer) {
 		this.interviewer = interviewer;
 	}
-	public String getInterviewdate1() {
-		if(this.interviewdate != null){
-			SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd");
-			Long time=new Long(this.interviewdate);
-			return format.format(time);
-		}
-		return null;
+	public Date getInterviewdate1() {
+		
+		return this.interviewdate ;
 	}
-	public String getInterviewdate() {
+	public Date getInterviewdate() {
 		return interviewdate;
 	}
-	public void setInterviewdate(String interviewdate) {
+	public void setInterviewdate(Date interviewdate) {
 		this.interviewdate = interviewdate;
 	}
 	public String getRemarks() {
@@ -74,6 +76,12 @@ public class ApplyForm {
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	public String getEmployeecode() {
+		return employeecode;
+	}
+	public void setEmployeecode(String employeecode) {
+		this.employeecode = employeecode;
 	}
 
 }

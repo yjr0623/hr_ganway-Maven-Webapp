@@ -79,7 +79,7 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id,name,sex,num,date_of_birth,height,weight,native,politics,marriage,escuage,licensetype,licenselocation,licensevaliddate,drivingex,cartype,isworklicense,worklicensevaliddate,familyphone,phone,email,birthplace,birthcode,residence,residencecode,iceperson,relation,icepersonphone,iscomputer,proskill,otherskill,interest,ispeccancy,beillegal,retire,tranlocation,reason1,tranpost,reason2,tranlocation1year,reason3,updatetime,status,batch_date,deleted,cre_pro_id,created_by,created_date,mod_pro_id,last_modified_by,last_modified_date,post,applicationArea,exp_salary,workDate,channel,employeecode
+		id,name,sex,num,date_of_birth,height,weight,native as nativeStr,politics,marriage,escuage,licensetype,licenselocation,licensevaliddate,drivingex,cartype,isworklicense,worklicensevaliddate,familyphone,phone,email,birthplace,birthcode,residence,residencecode,iceperson,relation,icepersonphone,iscomputer,proskill,otherskill,interest,ispeccancy,beillegal,retire,tranlocation,reason1,tranpost,reason2,tranlocation1year,reason3,updatetime,status,batch_date,deleted,cre_pro_id,created_by,created_date,mod_pro_id,last_modified_by,last_modified_date,post,applicationArea,exp_salary,workDate,channel,employeecode
 	</sql>
 	
 	<sql id="ORACLE_paginationStart">
@@ -128,70 +128,70 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
-				#{id},
+				#{id,jdbcType=CHAR},
 			</if>
 			<if test="name != null">
-				#{name},
+				#{name,jdbcType=VARCHAR},
 			</if>
 			<if test="sex != null">
-				#{sex},
+				#{sex,jdbcType=VARCHAR},
 			</if>
 			<if test="num != null">
-				#{num},
+				#{num,jdbcType=VARCHAR},
 			</if>
-			#{date_of_birth},
-#{height},
-#{weight},
-#{nativeStr},
-#{politics},
-#{marriage},
-#{escuage},
-#{licensetype},
-#{licenselocation},
-#{licensevaliddate},
-#{drivingex},
-#{cartype},
-#{isworklicense},
-#{worklicensevaliddate},
-#{familyphone},
-#{phone},
-#{email},
-#{birthplace},
-#{birthcode},
-#{residence},
-#{residencecode},
-#{iceperson},
-#{relation},
-#{icepersonphone},
-#{iscomputer},
-#{proskill},
-#{otherskill},
-#{interest},
-#{ispeccancy},
-#{beillegal},
-#{retire},
-#{tranlocation},
-#{reason1},
-#{tranpost},
-#{reason2},
-#{tranlocation1year},
-#{reason3},
-#{updatetime},
-#{status},
-#{batch_date},
-#{deleted},
-#{cre_pro_id},
-#{created_by},
+			#{date_of_birth,jdbcType=DATE},
+#{height, jdbcType=VARCHAR},
+#{weight, jdbcType=VARCHAR},
+#{nativeStr, jdbcType=VARCHAR},
+#{politics, jdbcType=VARCHAR},
+#{marriage, jdbcType=VARCHAR},
+#{escuage, jdbcType=VARCHAR},
+#{licensetype, jdbcType=VARCHAR},
+#{licenselocation, jdbcType=VARCHAR},
+#{licensevaliddate, jdbcType=DATE},
+#{drivingex, jdbcType=VARCHAR},
+#{cartype, jdbcType=VARCHAR},
+#{isworklicense, jdbcType=VARCHAR},
+#{worklicensevaliddate, jdbcType=DATE},
+#{familyphone, jdbcType=VARCHAR},
+#{phone, jdbcType=VARCHAR},
+#{email, jdbcType=VARCHAR},
+#{birthplace, jdbcType=VARCHAR},
+#{birthcode, jdbcType=VARCHAR},
+#{residence, jdbcType=VARCHAR},
+#{residencecode, jdbcType=VARCHAR},
+#{iceperson, jdbcType=VARCHAR},
+#{relation, jdbcType=VARCHAR},
+#{icepersonphone, jdbcType=VARCHAR},
+#{iscomputer, jdbcType=VARCHAR},
+#{proskill, jdbcType=VARCHAR},
+#{otherskill, jdbcType=VARCHAR},
+#{interest, jdbcType=VARCHAR},
+#{ispeccancy, jdbcType=VARCHAR},
+#{beillegal, jdbcType=VARCHAR},
+#{retire, jdbcType=VARCHAR},
+#{tranlocation, jdbcType=VARCHAR},
+#{reason1, jdbcType=VARCHAR},
+#{tranpost, jdbcType=VARCHAR},
+#{reason2, jdbcType=VARCHAR},
+#{tranlocation1year, jdbcType=VARCHAR},
+#{reason3, jdbcType=VARCHAR},
+#{updatetime, jdbcType=DATE},
+#{status, jdbcType=VARCHAR},
+#{batch_date, jdbcType=DATE},
+#{deleted, jdbcType=VARCHAR},
+#{cre_pro_id, jdbcType=VARCHAR},
+#{created_by, jdbcType=VARCHAR},
 sysdate,
-#{mod_pro_id},
-#{last_modified_by},
+#{mod_pro_id, jdbcType=VARCHAR},
+#{last_modified_by, jdbcType=VARCHAR},
 sysdate,
-#{post},
-#{applicationArea},
-#{exp_salary},
-#{workDate},
-#{channel},
-#{employeecode}
+#{post, jdbcType=VARCHAR},
+#{applicationArea, jdbcType=VARCHAR},
+#{exp_salary, jdbcType=VARCHAR},
+#{workDate, jdbcType=DATE},
+#{channel, jdbcType=VARCHAR},
+#{employeecode, jdbcType=VARCHAR}
 			
 		</trim>
 	</insert>
@@ -323,7 +323,7 @@ sysdate,
          and  status=#{status,jdbcType=VARCHAR}
         </if>
         	<if test="name != null">
-        	 and name = #{name,jdbcType=VARCHAR}
+        	 and name like #{name,jdbcType=VARCHAR}
         	</if>
         	<if test="employeecode != null">
         	 and employeecode = #{employeecode,jdbcType=VARCHAR}
@@ -364,7 +364,7 @@ sysdate,
         	<if test="createEnd != null">
         	 and created_date <![CDATA[<]]> = #{createEnd,jdbcType=DATE}
         	</if>
-        	
+        	order by created_date
         	<include refid="ORACLE_paginationEnd" />
 	
 	</select>
@@ -378,7 +378,7 @@ sysdate,
          and  status=#{status,jdbcType=VARCHAR}
         </if>
         	<if test="name != null">
-        	 and name = #{name,jdbcType=VARCHAR}
+        	 and name like #{name,jdbcType=VARCHAR}
         	</if>
         	<if test="employeecode != null">
         	 and employeecode = #{employeecode,jdbcType=VARCHAR}

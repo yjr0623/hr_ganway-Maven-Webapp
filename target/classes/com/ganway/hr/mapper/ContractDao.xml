@@ -2,15 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ganway.hr.dao.ContractDao">
   <resultMap id="BaseResultMap" type="com.ganway.hr.vo.ContractDO">
-    <id column="TREATYID" jdbcType="BIGINT" property="treatyid" />
-    <result column="EMPLOYEECODE" jdbcType="BIGINT" property="employeecode" />
+    <id column="TREATYID" jdbcType="VARCHAR" property="treatyid" />
+    <result column="EMPLOYEECODE" jdbcType="VARCHAR" property="employeecode" />
     <result column="POST_ID" jdbcType="CHAR" property="postId" />
     <result column="NEWTREATYTYPE" jdbcType="VARCHAR" property="newtreatytype" />
     <result column="TREATYTYPE" jdbcType="VARCHAR" property="treatytype" />
     <result column="TREATYDATE" jdbcType="DATE" property="treatydate" />
     <result column="TREATYBEGIN" jdbcType="DATE" property="treatybegin" />
     <result column="TREATYEND" jdbcType="DATE" property="treatyend" />
-    <result column="TREATYLAST" jdbcType="BIGINT" property="treatylast" />
+    <result column="TREATYLAST" jdbcType="VARCHAR" property="treatylast" />
     <result column="DELETED" jdbcType="CHAR" property="deleted" />
     <result column="PATH" jdbcType="VARCHAR" property="path" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
@@ -77,32 +77,21 @@
   </sql>
   <sql id="Base_Column_List">
     TREATYID, EMPLOYEECODE, POST_ID, NEWTREATYTYPE, TREATYTYPE, TREATYDATE, TREATYBEGIN, 
-    TREATYEND, TREATYLAST, DELETED, PATH, REMARK
+    TREATYEND, TREATYLAST, DELETED, PATH, REMARK,BASICID
   </sql>
-  <select id="selectByExample" parameterType="com.ganway.hr.vo.ContractDOExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tb_contract
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_contract
-    where TREATYID = #{treatyid,jdbcType=BIGINT}
+    where deleted='0' and basicId=#{basicId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from tb_contract
-    where TREATYID = #{treatyid,jdbcType=BIGINT}
-  </delete>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_contract
+    where deleted='0' and TREATYID = #{treatyid,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByExample" parameterType="com.ganway.hr.vo.ContractDOExample">
     delete from tb_contract
     <if test="_parameter != null">
@@ -113,11 +102,11 @@
     insert into tb_contract (TREATYID, EMPLOYEECODE, POST_ID, 
       NEWTREATYTYPE, TREATYTYPE, TREATYDATE, 
       TREATYBEGIN, TREATYEND, TREATYLAST, 
-      DELETED, PATH, REMARK)
-    values (#{treatyid,jdbcType=BIGINT}, #{employeecode,jdbcType=BIGINT}, #{postId,jdbcType=CHAR}, 
+      DELETED, PATH, REMARK,BASICID)
+    values (#{treatyid,jdbcType=VARCHAR}, #{employeecode,jdbcType=VARCHAR}, #{postId,jdbcType=CHAR}, 
       #{newtreatytype,jdbcType=VARCHAR}, #{treatytype,jdbcType=VARCHAR}, #{treatydate,jdbcType=DATE}, 
-      #{treatybegin,jdbcType=DATE}, #{treatyend,jdbcType=DATE}, #{treatylast,jdbcType=BIGINT}, 
-      #{deleted,jdbcType=CHAR}, #{path,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{treatybegin,jdbcType=DATE}, #{treatyend,jdbcType=DATE}, #{treatylast,jdbcType=VARCHAR}, 
+      #{deleted,jdbcType=CHAR}, #{path,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},#{basicId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ganway.hr.vo.ContractDO">
     insert into tb_contract
@@ -158,13 +147,16 @@
       <if test="remark != null">
         REMARK,
       </if>
+      <if test="basicId != null">
+      BASICID
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="treatyid != null">
-        #{treatyid,jdbcType=BIGINT},
+        #{treatyid,jdbcType=VARCHAR},
       </if>
       <if test="employeecode != null">
-        #{employeecode,jdbcType=BIGINT},
+        #{employeecode,jdbcType=VARCHAR},
       </if>
       <if test="postId != null">
         #{postId,jdbcType=CHAR},
@@ -185,7 +177,7 @@
         #{treatyend,jdbcType=DATE},
       </if>
       <if test="treatylast != null">
-        #{treatylast,jdbcType=BIGINT},
+        #{treatylast,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         #{deleted,jdbcType=CHAR},
@@ -196,6 +188,9 @@
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="basicId != null">
+        #{basicId,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.ganway.hr.vo.ContractDOExample" resultType="java.lang.Long">
@@ -204,73 +199,14 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="com.ganway.hr.vo.ContractDO">
     update tb_contract
     <set>
-      <if test="record.treatyid != null">
-        TREATYID = #{record.treatyid,jdbcType=BIGINT},
+      <if test="treatyid != null">
+        TREATYID = #{treatyid,jdbcType=VARCHAR},
       </if>
-      <if test="record.employeecode != null">
-        EMPLOYEECODE = #{record.employeecode,jdbcType=BIGINT},
-      </if>
-      <if test="record.postId != null">
-        POST_ID = #{record.postId,jdbcType=CHAR},
-      </if>
-      <if test="record.newtreatytype != null">
-        NEWTREATYTYPE = #{record.newtreatytype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.treatytype != null">
-        TREATYTYPE = #{record.treatytype,jdbcType=VARCHAR},
-      </if>
-      <if test="record.treatydate != null">
-        TREATYDATE = #{record.treatydate,jdbcType=DATE},
-      </if>
-      <if test="record.treatybegin != null">
-        TREATYBEGIN = #{record.treatybegin,jdbcType=DATE},
-      </if>
-      <if test="record.treatyend != null">
-        TREATYEND = #{record.treatyend,jdbcType=DATE},
-      </if>
-      <if test="record.treatylast != null">
-        TREATYLAST = #{record.treatylast,jdbcType=BIGINT},
-      </if>
-      <if test="record.deleted != null">
-        DELETED = #{record.deleted,jdbcType=CHAR},
-      </if>
-      <if test="record.path != null">
-        PATH = #{record.path,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark != null">
-        REMARK = #{record.remark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update tb_contract
-    set TREATYID = #{record.treatyid,jdbcType=BIGINT},
-      EMPLOYEECODE = #{record.employeecode,jdbcType=BIGINT},
-      POST_ID = #{record.postId,jdbcType=CHAR},
-      NEWTREATYTYPE = #{record.newtreatytype,jdbcType=VARCHAR},
-      TREATYTYPE = #{record.treatytype,jdbcType=VARCHAR},
-      TREATYDATE = #{record.treatydate,jdbcType=DATE},
-      TREATYBEGIN = #{record.treatybegin,jdbcType=DATE},
-      TREATYEND = #{record.treatyend,jdbcType=DATE},
-      TREATYLAST = #{record.treatylast,jdbcType=BIGINT},
-      DELETED = #{record.deleted,jdbcType=CHAR},
-      PATH = #{record.path,jdbcType=VARCHAR},
-      REMARK = #{record.remark,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ganway.hr.vo.ContractDO">
-    update tb_contract
-    <set>
       <if test="employeecode != null">
-        EMPLOYEECODE = #{employeecode,jdbcType=BIGINT},
+        EMPLOYEECODE = #{employeecode,jdbcType=VARCHAR},
       </if>
       <if test="postId != null">
         POST_ID = #{postId,jdbcType=CHAR},
@@ -291,7 +227,7 @@
         TREATYEND = #{treatyend,jdbcType=DATE},
       </if>
       <if test="treatylast != null">
-        TREATYLAST = #{treatylast,jdbcType=BIGINT},
+        TREATYLAST = #{treatylast,jdbcType=VARCHAR},
       </if>
       <if test="deleted != null">
         DELETED = #{deleted,jdbcType=CHAR},
@@ -303,24 +239,82 @@
         REMARK = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where TREATYID = #{treatyid,jdbcType=BIGINT}
+    where TREATYID=#{treatyid, jdbcType=VARCHAR}
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_contract
+    set TREATYID = #{record.treatyid,jdbcType=VARCHAR},
+      EMPLOYEECODE = #{record.employeecode,jdbcType=VARCHAR},
+      POST_ID = #{record.postId,jdbcType=CHAR},
+      NEWTREATYTYPE = #{record.newtreatytype,jdbcType=VARCHAR},
+      TREATYTYPE = #{record.treatytype,jdbcType=VARCHAR},
+      TREATYDATE = #{record.treatydate,jdbcType=DATE},
+      TREATYBEGIN = #{record.treatybegin,jdbcType=DATE},
+      TREATYEND = #{record.treatyend,jdbcType=DATE},
+      TREATYLAST = #{record.treatylast,jdbcType=VARCHAR},
+      DELETED = #{record.deleted,jdbcType=CHAR},
+      PATH = #{record.path,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ganway.hr.vo.ContractDO">
+    update tb_contract
+    <set>
+      <if test="employeecode != null">
+        EMPLOYEECODE = #{employeecode,jdbcType=VARCHAR},
+      </if>
+      <if test="postId != null">
+        POST_ID = #{postId,jdbcType=CHAR},
+      </if>
+      <if test="newtreatytype != null">
+        NEWTREATYTYPE = #{newtreatytype,jdbcType=VARCHAR},
+      </if>
+      <if test="treatytype != null">
+        TREATYTYPE = #{treatytype,jdbcType=VARCHAR},
+      </if>
+      <if test="treatydate != null">
+        TREATYDATE = #{treatydate,jdbcType=DATE},
+      </if>
+      <if test="treatybegin != null">
+        TREATYBEGIN = #{treatybegin,jdbcType=DATE},
+      </if>
+      <if test="treatyend != null">
+        TREATYEND = #{treatyend,jdbcType=DATE},
+      </if>
+      <if test="treatylast != null">
+        TREATYLAST = #{treatylast,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null">
+        DELETED = #{deleted,jdbcType=CHAR},
+      </if>
+      <if test="path != null">
+        PATH = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TREATYID = #{treatyid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ganway.hr.vo.ContractDO">
     update tb_contract
-    set EMPLOYEECODE = #{employeecode,jdbcType=BIGINT},
+    set EMPLOYEECODE = #{employeecode,jdbcType=VARCHAR},
       POST_ID = #{postId,jdbcType=CHAR},
       NEWTREATYTYPE = #{newtreatytype,jdbcType=VARCHAR},
       TREATYTYPE = #{treatytype,jdbcType=VARCHAR},
       TREATYDATE = #{treatydate,jdbcType=DATE},
       TREATYBEGIN = #{treatybegin,jdbcType=DATE},
       TREATYEND = #{treatyend,jdbcType=DATE},
-      TREATYLAST = #{treatylast,jdbcType=BIGINT},
+      TREATYLAST = #{treatylast,jdbcType=VARCHAR},
       DELETED = #{deleted,jdbcType=CHAR},
       PATH = #{path,jdbcType=VARCHAR},
       REMARK = #{remark,jdbcType=VARCHAR}
-      <if test="basicId != null ">
-      basicId = #{basicId }
-      </if>
-    where TREATYID = #{treatyid,jdbcType=BIGINT}
+      
+    where TREATYID = #{treatyid,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteByPrimaryKey" parameterType="java.lang.String">
+  	update tb_contract set DELETED='1' where TREATYID = #{treatyid,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -35,13 +35,10 @@
 			<if test="moveTo != null">
 				moveTo,
 			</if>
-			<if test="operateTime != null">
 				operateTime,
-			</if>
 			<if test="employeeCode != null">
 				employeeCode
 			</if>
-
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="basicId != null">
@@ -56,9 +53,7 @@
 			<if test="moveTo != null">
 				#{moveTo,jdbcType=VARCHAR},
 			</if>
-			<if test="operateTime != null">
 				sysdate,
-			</if>
 			<if test="employeeCode != null">
 				#{employeeCode,jdbcType=VARCHAR}
 			</if>
@@ -82,7 +77,7 @@
 		select  
         <include refid="Base_Column_List" />  
         from tb_reason
-        where basicId = #{id} 
+        where basicId = #{id} order by  operateid desc
 	</select>
 
 </mapper>  
